@@ -8,11 +8,12 @@ public class playerTristan : playerUnit
     public Transform frontSide, attackPoint;
 
     // will contain the stats for the character to be set on the UI
-    public float base_ATKbase, base_ATKmax, base_ATKdelay, base_ATKRange; 
+    public float base_ATKbase, base_ATKmax, base_ATKdelay, base_ATKRange, base_DMGdelay; 
 
     private Rigidbody2D rbBody;
     private Vector2 moveInput, moveData;
-    private bool canAttack = true;
+    private bool canAttack = true, damageActive = false;
+    
 
     [SerializeField]
     protected GameObject body;
@@ -93,6 +94,10 @@ public class playerTristan : playerUnit
         canAttack = true;
     }
 
+    private void updateDamageShield() {
+        damageActive = false;
+    }
+
     //  ================ animation sequences start here  ================ //
     private void setAnimationWalking(int direction, bool isWalking) {
         animBody.SetBool("isWalking", isWalking);
@@ -110,17 +115,20 @@ public class playerTristan : playerUnit
     
     // do on takes damage
     protected override void doOnTakeDamage(float DMG) {
-        if (HP > 0) {
+        if (!damageActive && HP > 0) {
+            damageActive = true;
             HP -= DMG;
             // Debug.Log(" Player takes damage: " + DMG);
             if (HP <= 0) {
                 HP = 0;
                 // isAlive = false; // disable if you don't want the player to die
             }
+            
+            // inform parent class that HP bar can now be updated;
+            updateHPBar();
+            Invoke("updateDamageShield", base_DMGdelay);
         }
 
-        // inform parent class that HP bar can now be updated;
-        updateHPBar();
     }
 
 

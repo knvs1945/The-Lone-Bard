@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class playerHandler : handler
 {
     protected Slider playerHP;
+    protected Vector3 HPBarPos; 
 
     [SerializeField]
     protected playerUnit playerObj;
@@ -35,6 +36,7 @@ public class playerHandler : handler
         // get the HP bar of the player
         playerHP = GameObject.Find("PlayerHP").GetComponent<Slider>();
         playerHP.value = playerObj.Player.HP;
+        HPBarPos = playerHP.transform.localPosition;
 
         do {
             if (playerObj != null) {
@@ -53,9 +55,33 @@ public class playerHandler : handler
 
     // update HP Bar after getting damaged;
     protected void updatePlayerHPBar() {
-        // Debug.Log("Updating Player HP Bar: " + playerObj.Player.HP);
         playerHP.value = playerObj.Player.HP;
+        shakeHPBar();
     }
+
+    // shake the HP bar when damaged
+    protected void shakeHPBar() {
+        StartCoroutine(shakeCoroutine(2f,20f));
+        playerHP.transform.localPosition = HPBarPos;
+    }
+
+    // coroutine that handles the HPbar shake
+    private IEnumerator shakeCoroutine(float duration, float magnitude) {
+        Vector3 originalPos = playerHP.transform.localPosition;
+        float elapsed = 0.0f;
+
+        while (elapsed < duration) {
+            float y = Random.Range(-1f, 1f) * magnitude;
+            playerHP.transform.localPosition = new Vector3(originalPos.x, originalPos.y + y, originalPos.z);
+            elapsed += Time.deltaTime;
+            if (magnitude > 0) magnitude -= 0.3f;
+            else magnitude = 0;
+            yield return null;
+        }
+
+        playerHP.transform.localPosition = originalPos;
+    }
+
 }
 
 // class to contain player controls

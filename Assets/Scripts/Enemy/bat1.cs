@@ -64,7 +64,7 @@ public class bat1 : enemy
     }
 
     // bat 1 gets damaged
-    protected override void doOnTakeDamage(float DMG) {
+    protected override void doOnTakeDamage(float DMG) {        
         if (HP >= 0) {
             HP -= DMG;
             if (HP <= 0) {

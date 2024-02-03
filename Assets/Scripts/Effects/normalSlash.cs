@@ -6,6 +6,7 @@ public class normalSlash : projectiles
 {
     // Start is called before the first frame update
     protected string targetTag;
+    protected float pushbackMin = 1f;
     protected override void Start()
     {
       flashEffect = false;
@@ -23,9 +24,11 @@ public class normalSlash : projectiles
       if (targets.Length > 0) {
         for (int i = 0; i < targets.Length; i++) {
           targetTag = collision.tag; 
-          Debug.Log("Target collided: " + targetTag + " - " + targets[i] );
           if (targetTag == targets[i]) {
+            Debug.Log("Target collided: " + targetTag + " - " + targets[i] );
+            pushBack(collision, transform, pushbackMin);
             collision.GetComponent<enemy>().takesDamage(DMG);
+            
           }
         }
       }
