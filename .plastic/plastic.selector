@@ -1,0 +1,4 @@
+repository "The Lone Bard@KNVS@cloud"
+  path "/"
+    br "/main"
+    co "/main"
