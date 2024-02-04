@@ -64,6 +64,7 @@
      <Compile Include="Assets\Scripts\Enemy\enemy.cs" />
      <Compile Include="Assets\Scripts\Handle\enemyHandler.cs" />
      <Compile Include="Assets\Scripts\Handle\gameHandler.cs" />
+     <Compile Include="Assets\Scripts\Handle\mapHandler.cs" />
      <Compile Include="Assets\Scripts\Handle\playerHandler.cs" />
      <Compile Include="Assets\Scripts\Handle\rhythmHandler.cs" />
      <Compile Include="Assets\Scripts\Player\playerTristan.cs" />

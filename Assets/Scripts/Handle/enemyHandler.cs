@@ -16,6 +16,7 @@ public class enemyHandler : handler
     }
 
     public waveSet[] Waves;             // sets the waves to be spawned
+    public Transform[] spawnPoints;
 
     [SerializeField]
     protected gameUnit enemyTarget;
