@@ -5,6 +5,9 @@ using UnityEngine;
 public class playerUnit : gameUnit
 {    
     protected playerControls controls;
+    protected bool isControlDisabled = true, isdamageShldActive = false;
+
+    public float base_DMGdelay; // damage shield between damage instances
 
     [SerializeField]
     private playerUnit player;
@@ -35,6 +38,15 @@ public class playerUnit : gameUnit
         set { player = value; }
     }
 
+    public bool IsControlDisabled {
+        get { return isControlDisabled; }
+        set { isControlDisabled = value; }
+    }
+
+    public bool IsDamageShldActive {
+        get { return isdamageShldActive;}
+    }
+
     // common functions
     protected bool checkHPifAlive() {
         if (isAlive && !isNPC) {
@@ -44,10 +56,8 @@ public class playerUnit : gameUnit
     }
 
     protected void updateHPBar() {
-        // if (updatePlayerHPBar != null) {
         consoleUI.Log("Updating HP Bar: " + HP);
         playerUnit.updatePlayerHPBar();    // inform the playerHandler that the HP bar needs updating
-        // }
     }
 
 }

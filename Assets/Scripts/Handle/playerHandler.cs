@@ -6,11 +6,13 @@ using UnityEngine.UI;
 // Handler for players
 public class playerHandler : handler
 {
+    public Transform[] playerSpawns;
     protected Slider playerHP;
     protected Vector3 HPBarPos; 
 
     [SerializeField]
     protected playerUnit playerObj;
+    protected Transform currentPlayerSpawn;
 
     // Player's controls
     protected playerControls controlPlayer1;
@@ -45,6 +47,7 @@ public class playerHandler : handler
                 Debug.Log("Registering updatePlayerHPBar event...");
             }
         } while (playerObj == null);
+
     }
 
     // Update is called once per frame
@@ -53,15 +56,17 @@ public class playerHandler : handler
         
     }
 
-    // update HP Bar after getting damaged;
+    // update HP Bar after getting damaged
     protected void updatePlayerHPBar() {
-        playerHP.value = playerObj.Player.HP;
-        shakeHPBar();
+        if (playerObj.Player.IsDamageShldActive) {
+            playerHP.value = playerObj.Player.HP;
+            shakeHPBar();
+        }
     }
 
     // shake the HP bar when damaged
     protected void shakeHPBar() {
-        StartCoroutine(shakeCoroutine(2f,20f));
+        StartCoroutine(shakeCoroutine(playerObj.Player.base_DMGdelay, 20f));
         playerHP.transform.localPosition = HPBarPos;
     }
 
@@ -69,19 +74,69 @@ public class playerHandler : handler
     private IEnumerator shakeCoroutine(float duration, float magnitude) {
         Vector3 originalPos = playerHP.transform.localPosition;
         float elapsed = 0.0f;
+        float shakeDirection = -1f;
 
         while (elapsed < duration) {
-            float y = Random.Range(-1f, 1f) * magnitude;
+            // float y = Random.Range(-1f, 1f) * magnitude;
+            float y = shakeDirection * magnitude;
             playerHP.transform.localPosition = new Vector3(originalPos.x, originalPos.y + y, originalPos.z);
             elapsed += Time.deltaTime;
-            if (magnitude > 0) magnitude -= 0.3f;
-            else magnitude = 0;
+            if (magnitude > 0) {
+                magnitude -= 0.5f;
+                shakeDirection *= -1f; // flip direction
+            }
+            // else magnitude = 0;
             yield return null;
         }
 
         playerHP.transform.localPosition = originalPos;
     }
 
+    /* 
+    *
+    *   Start stage sequences 
+    *
+    */
+    public bool startStageSequence() {
+        
+        // check if player spawns are present and assign the current player spawn to the first one if not yet done
+        if (playerSpawns.Length > 0) {
+            if (!currentPlayerSpawn) currentPlayerSpawn = playerSpawns[0];
+        }
+        else {
+            // unassigned player spawn array will return false
+            Debug.Log("currentPlayerSpawn is currently unassigned.");
+            return false;
+        }
+
+        // start the animation for the intro sequence and transfer the player to the playerSpawn
+        if (playerObj) {
+            playerObj.Player.IsControlDisabled = true;
+            playerObj.Player.transform.position = currentPlayerSpawn.position;
+            consoleUI.Log("Starting level in...");
+            StartCoroutine(prepPlayerForStage());   // countdown before starting the stage
+            Debug.Log("Player now able to use controls");
+        }
+        
+        return true;
+    }
+
+    // IEnumerator for setting up the stage for the player
+    IEnumerator prepPlayerForStage() {
+
+        // stageIntroTimer is a static value 
+        float Timer = stageIntroTimer;
+        
+        while (Timer >= 0) {
+            consoleUI.Log(Timer.ToString());
+            yield return new WaitForSeconds(1);
+            Timer--;            
+        }
+        
+        playerObj.Player.IsControlDisabled = false;
+
+        // get the player object ang transfer it to the current player spawn
+    }
 }
 
 // class to contain player controls

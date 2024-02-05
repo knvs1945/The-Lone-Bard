@@ -47,7 +47,9 @@ public class consoleUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // show console
         if(Input.GetKeyDown("`")) toggleConsole();
+        if(Input.GetKey("escape")) Application.Quit();
     }
 
     protected void toggleConsole() {

@@ -21,7 +21,7 @@ SpriteAtlas:
       crunchedCompression: 0
       sRGB: 1
     platformSettings:
-    - serializedVersion: 2
+    - serializedVersion: 3
       m_BuildTarget: DefaultTexturePlatform
       m_MaxTextureSize: 2048
       m_ResizeAlgorithm: 0
@@ -31,7 +31,9 @@ SpriteAtlas:
       m_CrunchedCompression: 0
       m_AllowsAlphaSplitting: 0
       m_Overridden: 0
+      m_IgnorePlatformSupport: 0
       m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 1
     packingSettings:
       serializedVersion: 2
       padding: 4
@@ -39,12 +41,26 @@ SpriteAtlas:
       allowAlphaSplitting: 0
       enableRotation: 1
       enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: abb97d1fcdadbae4e927d80dd78ddf0c, type: 3}
     - {fileID: 2800000, guid: 3da01b00ad900e1489bfd2697532abda, type: 3}
-    totalSpriteSurfaceArea: 40960
     bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - 3da01b00ad900e1489bfd2697532abda: 21300000
+    - 3da01b00ad900e1489bfd2697532abda: 21300002
+    - 3da01b00ad900e1489bfd2697532abda: 21300004
+    - 3da01b00ad900e1489bfd2697532abda: 21300006
+    - 3da01b00ad900e1489bfd2697532abda: 21300008
+    - 3da01b00ad900e1489bfd2697532abda: 21300010
+    - 3da01b00ad900e1489bfd2697532abda: 21300012
+    - 3da01b00ad900e1489bfd2697532abda: 21300014
+    - 3da01b00ad900e1489bfd2697532abda: 21300016
+    - 3da01b00ad900e1489bfd2697532abda: 21300018
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 3da01b00ad900e1489bfd2697532abda, type: 3}
@@ -68,5 +84,6 @@ SpriteAtlas:
   - tiles_woodland_ground_7
   - tiles_woodland_ground_8
   - tiles_woodland_ground_9
+  m_RenderDataMap: {}
   m_Tag: Tileset
   m_IsVariant: 0

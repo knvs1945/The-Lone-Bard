@@ -8,11 +8,11 @@ public class playerTristan : playerUnit
     public Transform frontSide, attackPoint;
 
     // will contain the stats for the character to be set on the UI
-    public float base_ATKbase, base_ATKmax, base_ATKdelay, base_ATKRange, base_DMGdelay; 
+    public float base_ATKbase, base_ATKmax, base_ATKdelay, base_ATKRange; 
 
     private Rigidbody2D rbBody;
     private Vector2 moveInput, moveData;
-    private bool canAttack = true, damageActive = false;
+    private bool canAttack = true;
     
 
     [SerializeField]
@@ -34,9 +34,11 @@ public class playerTristan : playerUnit
     // Update is called once per frame
     void Update()
     {
-        checkIfAlive();
-        inputMovement();
-        tapTesting();
+        if (!isControlDisabled) {
+            checkIfAlive();
+            inputMovement();
+            tapTesting();
+        }
     }
 
     void FixedUpdate()
@@ -95,7 +97,7 @@ public class playerTristan : playerUnit
     }
 
     private void updateDamageShield() {
-        damageActive = false;
+        isdamageShldActive = false;
     }
 
     //  ================ animation sequences start here  ================ //
@@ -115,8 +117,9 @@ public class playerTristan : playerUnit
     
     // do on takes damage
     protected override void doOnTakeDamage(float DMG) {
-        if (!damageActive && HP > 0) {
-            damageActive = true;
+        Debug.Log("Getting damaged: " + isdamageShldActive);
+        if (!isdamageShldActive && HP > 0) {
+            isdamageShldActive = true;
             HP -= DMG;
             // Debug.Log(" Player takes damage: " + DMG);
             if (HP <= 0) {

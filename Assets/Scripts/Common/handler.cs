@@ -6,7 +6,7 @@ using UnityEngine;
 public enum states
 {
     MainMenu,
-    inBattle,
+    inStage,
     inEliteBattle,
     inBossBattle,
     inMap,
@@ -25,4 +25,5 @@ public class handler : MonoBehaviour
 
     protected static bool pauseGame = false;
     protected static int FPS = 30;
+    protected static float stageIntroTimer = 3f;
 }
