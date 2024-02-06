@@ -1,0 +1,51 @@
+Manpower
+1. On a scale of 1-5, how much should I edit/work on art assets?
+	- 1 + guidance
+2. In-house sound effects or find assets from internet?
+	- sfx from cleru
+3. Do we need proper testing (beta/external) or rely on unit/dev-level testing only?
+	- yes, beta
+4. Assets – when and how?
+	- early game - gelai, late - kevin/gelai
+
+Prototype & Direction
+1. Do we need a main menu screen?
+	- yes
+2. On a scale of 1-5 (5 highest), how much randomization do we want in the game?
+	- 2 - mob spawn placement and mob types/quality 
+3. Do we need NPC’s or world exploration outside the stage levels?
+	- no
+4. Do we need leveling up, items or skill upgrades (or any or all of them)?
+	- level up, skill upgrade only
+5. Game pacing and action level (focus on action or focus on adventure or something else)?
+	- action-paced
+6. NPC interactions?
+	- none, for cutscenes only
+
+Game Design
+1. What’s the tone of the game? 3 words to describe it 
+	- Lively, active, fantasy
+2. Decide on the art style of the game (and scale)
+	- Cartoony (2), Anime (5), half-flashy vs half-simplistic
+3. Add preload screen and logo of cheapgear?
+	- PNG & motion-graphic
+
+Game Specifics
+1. Quality and type list of mobs to build 
+	- Slime, Bat, Spider, shooting plant, Goblin (Humanoid, cute)
+2. Types of spells to include
+	- Offense, Buff, Disable
+3. Plot line 
+	- rescue mission adventure
+4. What kind of bosses to add
+	- Fixed early, Randomized later
+5. Should we add item drops from mobs?
+	- None
+6. How can player improve over the stages?
+	- Level-up + skill list
+7. Scoring system?
+	- star rank system: time + player based
+8. Player can change key bindings?
+	- No, for now
+9. Resolution of game?
+	- Fixed Resolution

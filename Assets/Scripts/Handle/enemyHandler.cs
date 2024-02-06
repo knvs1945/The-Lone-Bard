@@ -75,7 +75,7 @@ public class enemyHandler : handler
     {
         while (isGenerating) { 
             // enemy nextToLoad = currentWave.mobList[ Random.Range(0, currentWave.mobList.Length) ];
-            enemy nextToLoad = currentWave.mobList[0];   
+            enemy nextToLoad = currentWave.mobList[Random.Range(0, currentWave.mobList.Length)];   
             //mob = Instantiate(nextToLoad, new Vector2(0,0), transform.rotation);
             mob = spawnEnemy(nextToLoad, -30, 30, -10, 10);
             if (mob != null) {
