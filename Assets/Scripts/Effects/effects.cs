@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class effects : MonoBehaviour
 {
-    public float showDuration;
+    public float showDuration, splashDMG = 0, splashRadius = 1f;
     public bool flashEffect = true;
     
     protected string type;
@@ -20,5 +20,23 @@ public class effects : MonoBehaviour
     protected virtual void animRemoveEffect()
     {
         Destroy(gameObject);
+    }
+
+    // add damage to the effect
+    public void addSplashDMG(float dmg)
+    {
+        if (dmg >= 0) splashDMG = dmg;
+    }
+
+    // check if an object is close to the explosion
+    public bool checkTargetsAroundSplash(Transform target)
+    {
+        if (getTargetDistance(target.position) <= splashRadius) return true;
+        return false;
+    }
+
+    // check if an object is close to the explosion
+    protected virtual float getTargetDistance(Vector2 target) {
+        return Vector2.Distance(transform.position, target);
     }
 }

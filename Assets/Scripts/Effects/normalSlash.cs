@@ -28,7 +28,6 @@ public class normalSlash : projectiles
             Debug.Log("Target collided: " + targetTag + " - " + targets[i] );
             pushBack(collision, transform, pushbackMin);
             collision.GetComponent<enemy>().takesDamage(DMG);
-            
           }
         }
       }

@@ -54,7 +54,6 @@ public class gameHandler : handler
     *
     */
     public bool startLevel() {
-        bool success = false;
         stagePrepFlag = false;
         if (gameState != states.inStage) {
             // only change the gameState if the stage preps completes
@@ -75,6 +74,7 @@ public class gameHandler : handler
         
         checkPrepDone(stagePrepFlag); // all coroutines returned properly so we return true
     }
+    
     IEnumerator playerStagePrep() {
         bool success = false;
         if (playerHandle.startStageSequence()) {

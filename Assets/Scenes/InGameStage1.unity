@@ -81386,8 +81386,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Waves:
   - mobList:
-    - {fileID: 2661420472219817254, guid: 76f6ddb7cc0e53642aea78b93ca38bfa, type: 3}
-    - {fileID: 2683103433296905861, guid: 81590ed605ad7c4498024faba9896f3c, type: 3}
+    - {fileID: 6380949702841745292, guid: 36503229ade35c54c90b37c2e715122a, type: 3}
     mobLimit: 5
     spawnDelay: 3
     spawnAmountMin: 1
@@ -81471,7 +81470,7 @@ GameObject:
   - component: {fileID: 1233787421}
   m_Layer: 0
   m_Name: Tristan
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

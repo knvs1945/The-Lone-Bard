@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class slime1 : enemy
 {
-    // Start is called before the first frame update
     public gameUnit tempTarget; // use for testing only
+    public bool isExplosive, isShocking, isVenomous;
 
     private float distance, atkAnimSpd, burstMoveSpeed;
 
@@ -27,19 +27,40 @@ public class slime1 : enemy
         ATKdelay = 1;
         ATKbase = 5;
         // currentTarget = tempTarget;
+        targetPosition = setNewTargetPosition(roamRangeX, roamRangeY); // setup a roam range
+        roamTimer = Time.time + roamDelay; // setup a roam timer if the roam position is not reachable\
         UpdateTarget();
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
-        chaseCurrentTarget();
+        // roam anywhere until 
+        if (getTargetDistance() >= chaseRange) freeRoamToPoint();
+        else chaseCurrentTarget();
     }
 
     // called within the slime's run animation
     public void addBurstMoveSpeed()
     {
         burstMoveSpeed = moveSpeed;
+    }
+
+    // override the normal roam behavior and make it "jump" during its animation instead
+    protected override void freeRoamToPoint() {
+        // keep roaming until position is reached or roam timer runs out, then change roaming behavior again 
+        if (Time.time < roamTimer) {
+            
+            if (getTargetDistance(targetPosition) > 1f) {
+                // transform.position = Vector2.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+                transform.position = Vector2.MoveTowards(transform.position, targetPosition, burstMoveSpeed * Time.deltaTime);
+                burstMoveSpeed = burstMoveSpeed > 0 ? burstMoveSpeed - 0.5f : 0; // gradually remove the burst movespeed until it is 0
+            }
+        }
+        else {
+            targetPosition = setNewTargetPosition(roamRangeX, roamRangeY);
+            roamTimer = Time.time + roamDelay;
+        }
     }
 
     // override the normal chase behavior and make it "jump" during its animation instead
@@ -50,9 +71,7 @@ public class slime1 : enemy
                 // keep moving until target is in engaging distance
                 if (getTargetDistance() >= engageRange) {
                     transform.position = Vector2.MoveTowards(transform.position, target.position, burstMoveSpeed * Time.deltaTime);
-                    if (burstMoveSpeed > 0) burstMoveSpeed -= 0.5f;
-                    else burstMoveSpeed = 0;
-                     
+                    burstMoveSpeed = burstMoveSpeed > 0 ? burstMoveSpeed - 0.5f : 0; // gradually remove the burst movespeed until it is 0
                 }
                 else doOnReachTarget();
             }
@@ -66,10 +85,12 @@ public class slime1 : enemy
             if (distance <= engageRange) {
                 // bite the player with an animation sequence
                 if (Time.time >= ATKTimer) {
-                    StartCoroutine(biteAttack());
                     ATKTimer = Time.time + ATKdelay; // delay the next attack using the ATKDelay
-                    showDamage(ATKbase, target.position);
-                    damageTarget(ATKbase);
+                    if (!isExplosive) {
+                        StartCoroutine(biteAttack());
+                        showDamage(ATKbase, target.position);
+                        damageTarget(ATKbase);
+                    }
                 }
             }
         }
@@ -93,10 +114,19 @@ public class slime1 : enemy
             HP -= DMG;
             if (HP <= 0) {
                 this.isAlive = false;
-                Debug.Log("Bat is killed: " + HP);
-                Destroy(gameObject);
+                doOnDeath();
             }
         }
+    }
+
+    // Check if the monster is explosive or shocking before destroying object
+    protected override void doOnDeath() {
+        explosion boomOnDeath;
+        if (isExplosive) {
+            boomOnDeath = (explosion)Instantiate(deathEffect, transform.position, transform.rotation);
+            boomOnDeath.setExplosionTarget("Player", ATKbase);
+        }
+        Destroy(gameObject);
     }
 
 }

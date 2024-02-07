@@ -1,4 +1,6 @@
 [Tt]emp/
+[Bb]uild/
+[Bb]uilds/
 [Oo]bj/
 [Ll]ibrary/
 sysinfo.txt
@@ -25,3 +27,4 @@ sysinfo.txt
 ._*
 ehthumbs.db
 [Tt]humbs.db
+.plastic
