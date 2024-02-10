@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class explosion : effects
+public class Explosion : Effects
 {
     public string targetTag = "Enemy";
 
@@ -28,7 +28,7 @@ public class explosion : effects
         if (splashDMG > 0 && targets.Length > 0) {
             for (int i = 0; i < targets.Length; i++) {
                 if (checkTargetsAroundSplash(targets[i].transform)) {
-                    targets[i].GetComponent<gameUnit>().takesDamage(splashDMG); // deal damage to that unit
+                    targets[i].GetComponent<GameUnit>().takesDamage(splashDMG); // deal damage to that unit
                 }
             }
         }

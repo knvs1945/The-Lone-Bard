@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class normalSlash : projectiles
+public class NormalSlash : Projectiles
 {
     // Start is called before the first frame update
     protected string targetTag;
@@ -27,7 +27,7 @@ public class normalSlash : projectiles
           if (targetTag == targets[i]) {
             Debug.Log("Target collided: " + targetTag + " - " + targets[i] );
             pushBack(collision, transform, pushbackMin);
-            collision.GetComponent<enemy>().takesDamage(DMG);
+            collision.GetComponent<Enemy>().takesDamage(DMG);
           }
         }
       }

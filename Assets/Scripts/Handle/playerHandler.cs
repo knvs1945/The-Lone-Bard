@@ -4,29 +4,29 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // Handler for players
-public class playerHandler : handler
+public class PlayerHandler : Handler
 {
     public Transform[] playerSpawns;
     protected Slider playerHP;
     protected Vector3 HPBarPos; 
 
     [SerializeField]
-    protected playerUnit playerObj;
+    protected PlayerUnit playerObj;
     protected Transform currentPlayerSpawn;
 
     // Player's controls
-    protected playerControls controlPlayer1;
+    protected PlayerControls controlPlayer1;
     protected string[] defaultTapKeys = {"h","j","k","l"};
 
     // constructor
-    public playerHandler() {
+    public PlayerHandler() {
     }
 
     // Start is called before the first frame update
     void Start()
     {
         // create default controls for player
-        controlPlayer1 = new playerControls(
+        controlPlayer1 = new PlayerControls(
             "w", "s", "a", "d",
             "u", "i", "space", "shift", "p",
             defaultTapKeys
@@ -43,7 +43,7 @@ public class playerHandler : handler
         do {
             if (playerObj != null) {
                 // register to event when player gets damaged
-                playerUnit.updatePlayerHPBar += updatePlayerHPBar;
+                PlayerUnit.updatePlayerHPBar += updatePlayerHPBar;
                 Debug.Log("Registering updatePlayerHPBar event...");
             }
         } while (playerObj == null);
@@ -140,12 +140,12 @@ public class playerHandler : handler
 }
 
 // class to contain player controls
-public class playerControls {
+public class PlayerControls {
     protected string moveUp, moveDown, moveLeft, moveRight, attack, defend, skillsync, dodge, pause;
     protected string[] tapButtons = new string[4];
 
     // constructor
-    public playerControls(
+    public PlayerControls(
         string _up, string _down, string _left, string _right, 
         string _attack, string _defend, string _sync, string _dodge, string _pause,
         string[] tapbuttons

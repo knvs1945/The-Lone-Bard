@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // goal class to add to each map/stage
-public class goal
+public class Goal
 {
     protected int id, type;
     protected string name, description;
     protected bool isMajorGoal;
-    protected goal nextGoal;
+    protected Goal nextGoal;
     
     // public status checkers
     public bool isEnabled, isDone;
 
     // constructor
-    public goal (int paramID, int paramType, string paramName, string paramDesc) {
+    public Goal (int paramID, int paramType, string paramName, string paramDesc) {
         id = paramID;
         type = paramType;
         name = paramName;
@@ -41,7 +41,7 @@ public class goal
         set { description = value; }
     }
 
-    public goal NextGoal {
+    public Goal NextGoal {
         get { return nextGoal; }
         set { nextGoal = value; }
     }
@@ -53,10 +53,10 @@ public class goal
 }
 
 // Handler for objectives and goals
-public class goalHandler : handler
+public class GoalHandler : Handler
 {
     
-    public goal[] goalSet;
+    public Goal[] goalSet;
     
     // Start is called before the first frame update
     void Start()

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class mapHandler : handler
+public class MapHandler : Handler
 {
 
 

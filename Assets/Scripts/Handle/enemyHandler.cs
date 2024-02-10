@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class enemyHandler : handler
+public class EnemyHandler : Handler
 {
 
     [System.Serializable]
     public class waveSet
     {
-        public enemy[] mobList;
+        public Enemy[] mobList;
         public int mobLimit;            // how many enemies are present at one time
         public float spawnDelay;        // how fast each monster spawns
         public float spawnAmountMin;    // how many monsters spawn each time - floor
@@ -19,15 +19,15 @@ public class enemyHandler : handler
     public Transform[] spawnPoints;
 
     [SerializeField]
-    protected gameUnit enemyTarget;
+    protected GameUnit enemyTarget;
     
     protected waveSet currentWave;      // is assigned the current wave
-    protected enemy mob;                // is the instantiated mob;
+    protected Enemy mob;                // is the instantiated mob;
     protected int enemyCount, waveID = 0;
     protected bool isGenerating = false;
 
     // getters and setters
-    public gameUnit Target {
+    public GameUnit Target {
         get { return enemyTarget; }
         set { enemyTarget = value; }
     }
@@ -75,7 +75,7 @@ public class enemyHandler : handler
     {
         while (isGenerating) { 
             // enemy nextToLoad = currentWave.mobList[ Random.Range(0, currentWave.mobList.Length) ];
-            enemy nextToLoad = currentWave.mobList[Random.Range(0, currentWave.mobList.Length)];   
+            Enemy nextToLoad = currentWave.mobList[Random.Range(0, currentWave.mobList.Length)];   
             //mob = Instantiate(nextToLoad, new Vector2(0,0), transform.rotation);
             mob = spawnEnemy(nextToLoad, -30, 30, -10, 10);
             if (mob != null) {
@@ -91,19 +91,19 @@ public class enemyHandler : handler
     // General spawn units function here - will use polymorphs
 
     // spawns an enemy in between minimum x & y ranges:
-    public enemy spawnEnemy(enemy mobtype, float minX, float maxX, float minY, float maxY) {
+    public Enemy spawnEnemy(Enemy mobtype, float minX, float maxX, float minY, float maxY) {
         float tempX = Random.Range(minX, maxX);
         float tempY = Random.Range(minY,maxY);
         return Instantiate(mobtype, new Vector2(tempX, tempY), Quaternion.identity);
     }
 
     // spawns an enemy at specified position but default no rotation
-    public enemy spawnEnemy(enemy mobtype, Vector2 position) {
+    public Enemy spawnEnemy(Enemy mobtype, Vector2 position) {
         return Instantiate(mobtype, position, Quaternion.identity);
     } 
 
     // spawns an enmy at specified position and specific rotation
-    public enemy spawnEnemy(enemy mobtype, Vector2 position, Quaternion rotation) {
+    public Enemy spawnEnemy(Enemy mobtype, Vector2 position, Quaternion rotation) {
         return Instantiate(mobtype, position, rotation);
     } 
 

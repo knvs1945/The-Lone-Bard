@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class dmgEffect : effects
+public class DmgEffect : Effects
 {
     public static float showDmgDuration = 3;
 

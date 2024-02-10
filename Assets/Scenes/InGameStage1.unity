@@ -80958,7 +80958,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   atlas: {fileID: 4343727234628468602, guid: e37943936cda5804e9be2c61165da27d, type: 2}
-  spriteName: tiles_woodland_ground
+  woodlandSet: tiles_woodland_ground
 --- !u!1 &954646428
 GameObject:
   m_ObjectHideFlags: 0

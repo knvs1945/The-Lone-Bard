@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // class for effects that contain damaging properties
-public class projectiles : effects
+public class Projectiles : Effects
 {
     public string[] targets;
 

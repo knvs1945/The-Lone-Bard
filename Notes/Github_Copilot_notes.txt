@@ -1,0 +1,42 @@
+Tilemap Atlas implementation example by github copilot:
+
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Tilemaps;
+
+public class DayNightCycle : MonoBehaviour
+{
+    public Tilemap tilemap;
+    public List<Sprite> daySprites;
+    public List<Sprite> nightSprites;
+
+    void Update()
+    {
+        // Determine whether it's currently day or night based on the game's logic
+        bool isDay = /* your game's logic here */;
+
+        // Choose the appropriate list of sprites based on whether it's day or night
+        List<Sprite> currentSprites = isDay ? daySprites : nightSprites;
+
+        // Iterate over every position in the Tilemap
+        for (int x = tilemap.cellBounds.xMin; x < tilemap.cellBounds.xMax; x++)
+        {
+            for (int y = tilemap.cellBounds.yMin; y < tilemap.cellBounds.yMax; y++)
+            {
+                Vector3Int position = new Vector3Int(x, y, 0);
+
+                // Get the current tile at this position
+                Tile tile = tilemap.GetTile<Tile>(position);
+
+                if (tile != null)
+                {
+                    // Determine the index of the sprite to use based on the game's logic
+                    int spriteIndex = /* your game's logic here */;
+
+                    // Set the sprite of the tile to the appropriate sprite
+                    tile.sprite = currentSprites[spriteIndex];
+                }
+            }
+        }
+    }
+}

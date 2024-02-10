@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class gameUnit : MonoBehaviour
+public class GameUnit : MonoBehaviour
 {
     public float HP, moveSpeed;
 
@@ -15,7 +15,7 @@ public class gameUnit : MonoBehaviour
     protected string unitName;
 
     // constructor
-    public gameUnit() {
+    public GameUnit() {
         isAlive = isImmune = true;
         isActive = isPaused = isNPC = false;
         Level = 1;

@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerUnit : gameUnit
+public class PlayerUnit : GameUnit
 {    
-    protected playerControls controls;
+    protected PlayerControls controls;
     protected bool isControlDisabled = true, isdamageShldActive = false;
 
     public float base_DMGdelay; // damage shield between damage instances
 
     [SerializeField]
-    private playerUnit player;
+    private PlayerUnit player;
 
     // Event Delegates here
     public delegate void onPlayerTakesDamage(); 
@@ -25,7 +25,7 @@ public class playerUnit : gameUnit
         Debug.Log("Player check: " + player);
     }
 
-    public playerControls Controls {
+    public PlayerControls Controls {
         get { return controls; }
         set { 
             controls = value; 
@@ -33,7 +33,7 @@ public class playerUnit : gameUnit
         }
     }
 
-    public playerUnit Player {
+    public PlayerUnit Player {
         get { return player;  }
         set { player = value; }
     }
@@ -57,7 +57,7 @@ public class playerUnit : gameUnit
 
     protected void updateHPBar() {
         consoleUI.Log("Updating HP Bar: " + HP);
-        playerUnit.updatePlayerHPBar();    // inform the playerHandler that the HP bar needs updating
+        PlayerUnit.updatePlayerHPBar();    // inform the playerHandler that the HP bar needs updating
     }
 
 }

@@ -2,20 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class enemy : gameUnit
+public class Enemy : GameUnit
 {
     protected static bool isDamageTextVisible = true;
 
-    public dmgEffect damageText;
-    public effects deathEffect;
+    public DmgEffect damageText;
+    public Effects deathEffect;
     public float engageRange, chaseRange, decisionDelay = 1, roamRangeX, roamRangeY, roamDelay = 3;
     
-
-    protected gameUnit currentTarget;
+    protected GameUnit currentTarget;
     protected Transform target;
-    protected Vector2 targetPosition;
-    protected dmgEffect tempEffect;
-    protected bool isBoss;
+    protected Vector2 targetPosition, Direction;
+    protected DmgEffect tempEffect;
+    protected bool isBoss, isFlipped = false;
     protected string description;
     protected float roamTimer;
     
@@ -29,11 +28,10 @@ public class enemy : gameUnit
         get { return description; }
     }
 
-    public gameUnit CurrentTarget {
+    public GameUnit CurrentTarget {
         get { return currentTarget; }
         set { currentTarget = value; }
     }
-
 
     // Start is called before the first frame update
     protected virtual void Start() {
@@ -112,7 +110,6 @@ public class enemy : gameUnit
 
     protected virtual void doOnChaseTarget(){}
     protected virtual void doOnReachTarget(){}
-    protected virtual void doOnDeath(){}
 
     // miscenalleneous functions
     
@@ -126,6 +123,64 @@ public class enemy : gameUnit
     protected Vector2 setNewTargetPosition(float minX, float minY, float maxX, float maxY) {
         return new Vector2( Random.Range(minX, maxX),
                             Random.Range(minY, maxY));
+    }
+
+    // Make the sprite look left or right based on mouse position
+    protected void flipSprite()    
+    {
+        if (!isFlipped) {
+            if (checkTargetPos() <= 0)
+            {
+                transform.Rotate(new Vector3(0, 180, 0));
+                isFlipped = true;
+            }
+        }
+        else {
+            if (checkTargetPos() > 0)
+            {
+                transform.Rotate(new Vector3(0, 180, 0));
+                isFlipped = false;
+            }
+        }
+    }
+
+    // Flip the sprite based on the target point it is going
+    protected void flipSprite(Vector2 targetPos)    
+    {
+        if (!isFlipped) {
+            if (checkTargetPos(targetPos) <= 0)
+            {
+                transform.Rotate(new Vector3(0, 180, 0));
+                isFlipped = true;
+            }
+        }
+        else {
+            if (checkTargetPos(targetPos) > 0)
+            {
+                transform.Rotate(new Vector3(0, 180, 0));
+                isFlipped = false;
+            }
+        }
+    }
+
+    // make the enemy check where the target is
+    protected int checkTargetPos()
+    {
+        return (checkXDirection(currentTarget.transform.position) == 1) ? 1 : 0;
+    }
+
+    // check where the specific spot is
+    protected int checkTargetPos(Vector2 targetPosition)
+    {
+        return (checkXDirection(targetPosition) == 1) ? 1 : 0;
+    }
+
+    // check if the player is left or right of the player and adjust accordingly
+    protected int checkXDirection (Vector2 targetPoint)
+    {   
+        Direction = new Vector2(targetPoint.x - transform.position.x, 0);
+        if (Direction.normalized.x >= 0) return 0; // 1 for right
+        return 1;
     }
 
 

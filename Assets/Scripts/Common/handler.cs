@@ -19,7 +19,7 @@ public enum states
     Preload
 }
 
-public class handler : MonoBehaviour
+public class Handler : MonoBehaviour
 {
     protected static states gameState = states.Preload; // default the gameState to preload
 

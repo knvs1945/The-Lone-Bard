@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class effects : MonoBehaviour
+public class Effects : MonoBehaviour
 {
     public float showDuration, splashDMG = 0, splashRadius = 1f;
     public bool flashEffect = true;

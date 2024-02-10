@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // Also handles in-game soundtrack
-public class rhythmHandler : handler
+public class RhythmHandler : Handler
 {
-    public static rhythmHandler instance; // holds the ONLY instance of the object
+    public static RhythmHandler instance; // holds the ONLY instance of the object
     
     private const float defaultBeatInterval = 1, defaultBPM = 60; // BPM in seconds
     private const float defaultTapPercent = 0.8f; // percentage of tap interval for each beat
@@ -40,7 +40,7 @@ public class rhythmHandler : handler
         {
             Debug.Log("Rhythmhandler instance is active: " + instance);
             Destroy(gameObject);
-            instance = this; // replace current instance with new one
+            // instance = this; // replace current instance with new one
         }
         else
         {

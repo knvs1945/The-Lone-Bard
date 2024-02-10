@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerTristan : playerUnit
+public class PlayerTristan : PlayerUnit
 {
-    public projectiles attackEffect;
+    public Projectiles attackEffect;
     public Transform frontSide, attackPoint;
 
     // will contain the stats for the character to be set on the UI
@@ -87,7 +87,7 @@ public class playerTristan : playerUnit
     
     private void tapTesting() {
         if (Input.GetKeyDown(controls.Skillsync)) {
-          if (rhythmHandler.checkTap()) consoleUI.Log("Tap Successful");
+          if (RhythmHandler.checkTap()) consoleUI.Log("Tap Successful");
           else consoleUI.Log("Tap Missed");
         }
     }
@@ -107,7 +107,7 @@ public class playerTristan : playerUnit
     }
 
     private void animateAttack() {
-        projectiles tempSlash; 
+        Projectiles tempSlash; 
         int frontSideRotation = 0;
         frontSideRotation = animBody.GetInteger("walkDirection");
         animBody.SetTrigger("normalAttack");

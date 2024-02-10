@@ -3,17 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class gameHandler : handler
+public class GameHandler : Handler
 {
     
     [SerializeField]
-    protected playerHandler playerHandle;
+    protected PlayerHandler playerHandle;
     [SerializeField]
-    protected rhythmHandler rhythmHandle;
+    protected RhythmHandler rhythmHandle;
     [SerializeField]
-    protected enemyHandler enemyHandle;
+    protected EnemyHandler enemyHandle;
     [SerializeField]
-    protected goalHandler goalHandle;
+    protected GoalHandler goalHandle;
     private bool stagePrepFlag;
 
 
@@ -25,8 +25,8 @@ public class gameHandler : handler
         Application.targetFrameRate = FPS;
 
         // test setBPM
-        rhythmHandler.setBPM(60);
-        consoleUI.Log("State: " + gameHandler.getGameState());
+        RhythmHandler.setBPM(60);
+        consoleUI.Log("State: " + GameHandler.getGameState());
 
         // move this somewhere else once startLevel works
         startLevel();

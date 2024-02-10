@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class slime1 : enemy
+public class Slime1 : Enemy
 {
-    public gameUnit tempTarget; // use for testing only
+    public GameUnit tempTarget; // use for testing only
     public bool isExplosive, isShocking, isVenomous;
 
     private float distance, atkAnimSpd, burstMoveSpeed;
 
     // constructor
-    public slime1 (int level = 1) {
+    public Slime1 (int level = 1) {
         if (currentTarget == null) currentTarget = tempTarget;
         Level = level;
         atkAnimSpd = 3;
@@ -55,6 +55,7 @@ public class slime1 : enemy
                 // transform.position = Vector2.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
                 transform.position = Vector2.MoveTowards(transform.position, targetPosition, burstMoveSpeed * Time.deltaTime);
                 burstMoveSpeed = burstMoveSpeed > 0 ? burstMoveSpeed - 0.5f : 0; // gradually remove the burst movespeed until it is 0
+                flipSprite(targetPosition);
             }
         }
         else {
@@ -67,6 +68,7 @@ public class slime1 : enemy
     protected override void chaseCurrentTarget() {
         if (currentTarget) {
             if (currentTarget.IsAlive) {
+                flipSprite();
                 doOnChaseTarget();
                 // keep moving until target is in engaging distance
                 if (getTargetDistance() >= engageRange) {
@@ -121,9 +123,9 @@ public class slime1 : enemy
 
     // Check if the monster is explosive or shocking before destroying object
     protected override void doOnDeath() {
-        explosion boomOnDeath;
+        Explosion boomOnDeath;
         if (isExplosive) {
-            boomOnDeath = (explosion)Instantiate(deathEffect, transform.position, transform.rotation);
+            boomOnDeath = (Explosion)Instantiate(deathEffect, transform.position, transform.rotation);
             boomOnDeath.setExplosionTarget("Player", ATKbase);
         }
         Destroy(gameObject);

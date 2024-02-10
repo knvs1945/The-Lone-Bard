@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bat1 : enemy
+public class Bat1 : Enemy
 {
-    public gameUnit tempTarget; // use for testing only
+    public GameUnit tempTarget; // use for testing only
 
     private float distance, atkAnimSpd;
 
     // constructor
-    public bat1 (int level = 1) {
+    public Bat1 (int level = 1) {
         if (currentTarget == null) currentTarget = tempTarget;
         Level = level;
         atkAnimSpd = 3;
