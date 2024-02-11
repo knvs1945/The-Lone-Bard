@@ -7,7 +7,8 @@ public class Projectiles : Effects
 {
     public string[] targets;
 
-    protected float dmg, spd;
+    protected Vector2 startPos;
+    protected float dmg, spd, range = 10f;
 
     public float DMG {
         get { return dmg; }
@@ -18,7 +19,17 @@ public class Projectiles : Effects
 
     public float SPEED {
         get { return spd; }
-        set { dmg = spd; }
+        set { 
+            spd = value; 
+            Debug.Log("SPEED UPDATED: " + spd);
+        }
+    }
+
+    public float RANGE {
+        get { return range; }
+        set {
+            if (value >= 0) range = value;
+        }
     }
 
     // Called when projectile hits a target
@@ -26,9 +37,6 @@ public class Projectiles : Effects
         Debug.Log(collision);
         doOnHitTarget(collision);
     }
-
-    // overrideable behavior for children
-    protected virtual void doOnHitTarget(Collider2D collision) {}
 
     // apply pushback onto a target
     protected virtual void pushBack(Collider2D target, Transform source, float power)
@@ -41,4 +49,23 @@ public class Projectiles : Effects
         }
     }
 
-}
+    
+    // move the projectile until it collides or disappears
+    protected virtual void moveUntilCollide()
+    {
+        if (getDistanceFromOrigin() <= range) transform.Translate(Vector2.down * spd * Time.deltaTime);
+        else { doOnMaxRange(); }
+    }
+
+    // get distance from Origin
+    protected virtual float getDistanceFromOrigin() {
+        return Vector2.Distance(transform.position, startPos);
+    }
+
+
+    // overrideable behavior for children
+    protected virtual void doOnHitTarget(Collider2D collision) {}
+    protected virtual void doOnMaxRange() {}
+
+
+    }

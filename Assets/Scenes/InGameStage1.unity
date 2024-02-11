@@ -81512,6 +81512,7 @@ MonoBehaviour:
     type: 3}
   frontSide: {fileID: 295536201}
   attackPoint: {fileID: 2034099288}
+  skill1: {fileID: 3129383337668473839, guid: 709e39ecb17a69c4289a624e9c55eeea, type: 3}
   base_ATKbase: 1
   base_ATKmax: 3
   base_ATKdelay: 0.5

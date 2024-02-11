@@ -8,6 +8,7 @@ public class Skill : MonoBehaviour
     protected int id, type, level;
     protected string skillName, description;
     protected GameUnit owner, target;
+    protected Transform castpoint;
     protected bool isActive, isPassive;
 
     public int ID {
@@ -38,6 +39,11 @@ public class Skill : MonoBehaviour
         set { owner = value; }
     }
 
+    public Transform Castpoint {
+        get { return castpoint; }
+        set { castpoint = value; }
+    }
+
     public GameUnit Target {
         get { return target; }
         set { target = Target; }
@@ -50,6 +56,21 @@ public class Skill : MonoBehaviour
 
     public bool IsPassive {
         get { return isPassive; }
+    }
+
+    // if the skill is in cooldown, isActive is false;
+    public virtual bool triggerSkill() {
+        bool success = false;
+        Debug.Log("Casting firebal skill...");
+        //if (isActive) {
+            success = doOnTrigger();
+        //}
+
+        return success;
+    }
+
+    protected virtual bool doOnTrigger() { 
+        return true;
     }
 
 }

@@ -7,13 +7,16 @@ public class PlayerTristan : PlayerUnit
     public Projectiles attackEffect;
     public Transform frontSide, attackPoint;
 
+    // temporary skill for testing;
+    public ActiveFireball skill1; 
+
     // will contain the stats for the character to be set on the UI
     public float base_ATKbase, base_ATKmax, base_ATKdelay, base_ATKRange; 
 
     private Rigidbody2D rbBody;
     private Vector2 moveInput, moveData;
     private bool canAttack = true;
-    
+
 
     [SerializeField]
     protected GameObject body;
@@ -29,6 +32,7 @@ public class PlayerTristan : PlayerUnit
 
         // temporarily enable god mode;
         // isImmune = true;
+        initSkillTesting();
     }
 
     // Update is called once per frame
@@ -84,13 +88,6 @@ public class PlayerTristan : PlayerUnit
             }
         }
     }
-    
-    private void tapTesting() {
-        if (Input.GetKeyDown(controls.Skillsync)) {
-          if (RhythmHandler.checkTap()) consoleUI.Log("Tap Successful");
-          else consoleUI.Log("Tap Missed");
-        }
-    }
 
     private void updateAttackCD() {
         canAttack = true;
@@ -134,6 +131,22 @@ public class PlayerTristan : PlayerUnit
 
     }
 
+    //  ================ testing sequences start here  ================ //
+    private void initSkillTesting() {
+        // temporary skill here;
+        skill1.DMG = base_ATKbase;
+        skill1.SPEED = 30;
+        skill1.RANGE = 5;
+        skill1.Owner = this;
+        skill1.Castpoint = frontSide;
+    }
 
+    private void tapTesting() {
+        if (Input.GetKeyDown(controls.Skillsync)) {
+          if (RhythmHandler.checkTap()) consoleUI.Log("Tap Successful");
+          else consoleUI.Log("Tap Missed");
+          skill1.triggerSkill();
+        }
+    }
 
 }
