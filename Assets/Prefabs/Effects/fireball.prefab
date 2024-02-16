@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7608723974806339875}
   m_Layer: 25
   m_Name: fireball
-  m_TagString: Untagged
+  m_TagString: Projectiles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -138,10 +138,10 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.016716003, y: -0.0033435822}
+  m_Offset: {x: -0.011469841, y: -0.011396691}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -152,7 +152,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.29898453, y: 0.2856102}
+  m_Size: {x: 0.35535622, y: 0.38224736}
   m_EdgeRadius: 0
 --- !u!50 &4994459961290674903
 Rigidbody2D:
@@ -197,6 +197,10 @@ MonoBehaviour:
   splashDMG: 0
   splashRadius: 1
   flashEffect: 0
-  targets: []
+  targets:
+  - Enemy
+  - Boss
+  obstacles:
+  - Obstacles
   fireballSpd: 7
   fireballRange: 10

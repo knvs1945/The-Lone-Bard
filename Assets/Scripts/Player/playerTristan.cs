@@ -132,6 +132,7 @@ public class PlayerTristan : PlayerUnit
     }
 
     //  ================ testing sequences start here  ================ //
+
     private void initSkillTesting() {
         // temporary skill here;
         skill1.DMG = base_ATKbase;
@@ -143,9 +144,11 @@ public class PlayerTristan : PlayerUnit
 
     private void tapTesting() {
         if (Input.GetKeyDown(controls.Skillsync)) {
-          if (RhythmHandler.checkTap()) consoleUI.Log("Tap Successful");
+          if (RhythmHandler.checkTap()) {
+            consoleUI.Log("Tap Successful");
+            skill1.triggerSkill();
+          }
           else consoleUI.Log("Tap Missed");
-          skill1.triggerSkill();
         }
     }
 

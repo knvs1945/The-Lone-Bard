@@ -5,7 +5,8 @@ using UnityEngine;
 // class for effects that contain damaging properties
 public class Projectiles : Effects
 {
-    public string[] targets;
+    public List<string> targets;
+    public List<string> obstacles;
 
     protected Vector2 startPos;
     protected float dmg, spd, range = 10f;
@@ -32,10 +33,21 @@ public class Projectiles : Effects
         }
     }
 
+    // Called when projectile collides with objects
+    protected virtual void OnCollisionEnter2D(Collision2D collision) {
+        // Debug.Log(collision);
+        doOnCollideTarget(collision);
+    }
+
     // Called when projectile hits a target
     protected virtual void OnTriggerEnter2D(Collider2D collision) {
-        Debug.Log(collision);
+        // Debug.Log(collision);
         doOnHitTarget(collision);
+    }
+
+    // Check if the collision target is a wall or obstacle
+    protected bool checkIfCollideWithObstacle(string tag) {
+        return obstacles.Contains(tag)? true : false;
     }
 
     // apply pushback onto a target
@@ -48,7 +60,6 @@ public class Projectiles : Effects
             rb.AddForce(direction * (rb.drag + power), ForceMode2D.Impulse);
         }
     }
-
     
     // move the projectile until it collides or disappears
     protected virtual void moveUntilCollide()
@@ -65,6 +76,7 @@ public class Projectiles : Effects
 
     // overrideable behavior for children
     protected virtual void doOnHitTarget(Collider2D collision) {}
+    protected virtual void doOnCollideTarget(Collision2D collision) {}
     protected virtual void doOnMaxRange() {}
 
 

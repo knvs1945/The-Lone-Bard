@@ -19,17 +19,23 @@ public class NormalSlash : Projectiles
         
     } */
 
-    // slash has hit a targets
+    // slash has hit a target. targets is from projectiles superclass
     protected override void doOnHitTarget(Collider2D collision) {
-      if (targets.Length > 0) {
-        for (int i = 0; i < targets.Length; i++) {
-          targetTag = collision.tag; 
-          if (targetTag == targets[i]) {
-            Debug.Log("Target collided: " + targetTag + " - " + targets[i] );
-            pushBack(collision, transform, pushbackMin);
-            collision.GetComponent<Enemy>().takesDamage(DMG);
+      Debug.Log("collision tag: " + collision.tag);
+      targetTag = collision.tag; 
+      if (targets.Contains(targetTag)) {
+          // Debug.Log("Target collided: " + targetTag + " - " + targets[i] + " - " + DMG);
+          pushBack(collision, transform, pushbackMin);
+          switch (targetTag) {
+              case "Enemy":
+              case "enemy":
+              case "Boss":
+              case "boss":
+                  Enemy enemy = collision.GetComponent<Enemy>();
+                  if (enemy != null) enemy.takesDamage(DMG);
+                  animRemoveEffect();
+                  break;
           }
-        }
       }
     }
 }
