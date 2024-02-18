@@ -28,7 +28,7 @@ public class PlayerHandler : Handler
         // create default controls for player
         controlPlayer1 = new PlayerControls(
             "w", "s", "a", "d",
-            "u", "i", "space", "shift", "p",
+            "u", "i", "j", "k", "shift", "p",
             defaultTapKeys
         );
         
@@ -141,13 +141,13 @@ public class PlayerHandler : Handler
 
 // class to contain player controls
 public class PlayerControls {
-    protected string moveUp, moveDown, moveLeft, moveRight, attack, defend, skillsync, dodge, pause;
+    protected string moveUp, moveDown, moveLeft, moveRight, attack, defend, skillsync1, skillsync2, dodge, pause;
     protected string[] tapButtons = new string[4];
 
     // constructor
     public PlayerControls(
         string _up, string _down, string _left, string _right, 
-        string _attack, string _defend, string _sync, string _dodge, string _pause,
+        string _attack, string _defend, string _sync1, string _sync2, string _dodge, string _pause,
         string[] tapbuttons
     ) {
         moveUp = _up;
@@ -156,7 +156,8 @@ public class PlayerControls {
         moveRight = _right;
         attack = _attack;
         defend = _defend;
-        skillsync = _sync;
+        skillsync1 = _sync1;
+        skillsync2 = _sync2;
         dodge = _dodge;
         pause = _pause;
         tapButtons = tapbuttons;
@@ -187,9 +188,13 @@ public class PlayerControls {
         get { return defend; }
         set { defend = value; }
     }
-    public string Skillsync {
-        get { return skillsync; }
-        set { skillsync = value; }
+    public string Skillsync1 {
+        get { return skillsync1; }
+        set { skillsync1 = value; }
+    }
+    public string Skillsync2 {
+        get { return skillsync2; }
+        set { skillsync2 = value; }
     }
     public string Dodge {
         get { return dodge; }

@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerTristan : PlayerUnit
 {
     public Projectiles attackEffect;
-    public Transform frontSide, attackPoint;
+    public Transform frontSide, attackPoint, notePoint;
+    public MusicNote[] skillNotes;
 
     // temporary skill for testing;
     public ActiveFireball skill1; 
@@ -15,12 +16,19 @@ public class PlayerTristan : PlayerUnit
 
     private Rigidbody2D rbBody;
     private Vector2 moveInput, moveData;
-    private bool canAttack = true;
-
+    private int castCounter = 0;
+    private bool canAttack = true, startCast = false, castSuccess = false;
+    
+    [SerializeField]
+    private AudioSource SFXCast;
 
     [SerializeField]
     protected GameObject body;
     protected Animator animBody;
+    protected List<MusicNote> noteList;
+    protected int[] skillCombo = new int[4];    // skill activation requires four notes
+
+
 
     // Start is called before the first frame update
     protected override void Start()
@@ -28,11 +36,13 @@ public class PlayerTristan : PlayerUnit
         base.Start();
         rbBody = GetComponent<Rigidbody2D>();
         animBody = body.GetComponent<Animator>();
+        noteList = new List<MusicNote>();
         initializeStats();
+        initSkillTesting();
+        resetTapCheckerStats();
 
         // temporarily enable god mode;
         // isImmune = true;
-        initSkillTesting();
     }
 
     // Update is called once per frame
@@ -41,7 +51,7 @@ public class PlayerTristan : PlayerUnit
         if (!isControlDisabled) {
             checkIfAlive();
             inputMovement();
-            tapTesting();
+            checkForSkillTaps();
         }
     }
 
@@ -61,6 +71,15 @@ public class PlayerTristan : PlayerUnit
         ATKmax = base_ATKmax;
         ATKdelay = base_ATKdelay;
         ATKRange = base_ATKRange;
+    }
+
+    // reset tap checker stats here
+    private void resetTapCheckerStats() {
+        startCast = false; 
+        castSuccess = false;
+        castCounter = 0;
+        for (int i = 0; i < skillCombo.Length; i++) skillCombo[i] = 0;    // reset the skillCombo flags
+        noteList.Clear(); // reset the notes list
     }
 
     // ================ Input action sequences start here  ================ //
@@ -93,6 +112,7 @@ public class PlayerTristan : PlayerUnit
         canAttack = true;
     }
 
+    // disable the damage shield as needed
     private void updateDamageShield() {
         isdamageShldActive = false;
     }
@@ -118,7 +138,6 @@ public class PlayerTristan : PlayerUnit
         if (!isdamageShldActive && HP > 0) {
             isdamageShldActive = true;
             HP -= DMG;
-            // Debug.Log(" Player takes damage: " + DMG);
             if (HP <= 0) {
                 HP = 0;
                 // isAlive = false; // disable if you don't want the player to die
@@ -128,8 +147,125 @@ public class PlayerTristan : PlayerUnit
             updateHPBar();
             Invoke("updateDamageShield", base_DMGdelay);
         }
+    }
+
+    // where start casting for skill occurs
+    private void checkForSkillTaps() {
+        // if either buttons are pressed
+        if (Input.GetKeyDown(controls.Skillsync1) || Input.GetKeyDown(controls.Skillsync2)) {
+        
+            // check for taps and build up the skill Combo list
+            if (RhythmHandler.checkTap()) {
+                if (!startCast) {
+                    startCast = true;
+                }
+                if (Input.GetKeyDown(controls.Skillsync1)) {
+                    if (castCounter < skillCombo.Length) {
+                        skillCombo[castCounter] = 1;
+                        addMusicNotes(1, true);
+                    }
+                    else Debug.Log("castCounter out of bounds: " + castCounter);
+                }
+                else if (Input.GetKeyDown(controls.Skillsync2)) {
+                    if (castCounter < skillCombo.Length) {
+                        skillCombo[castCounter] = 2;
+                        addMusicNotes(1, true);
+                    }
+                    else Debug.Log("castCounter out of bounds: " + castCounter);
+                }
+                consoleUI.Log("Tap Successful");
+            }
+            else {
+                if (Input.GetKeyDown(controls.Skillsync1)) {
+                    addMusicNotes(1, false);
+                }
+                else if (Input.GetKeyDown(controls.Skillsync2)) {
+                    addMusicNotes(2, false);
+                }
+                 
+                consoleUI.Log("Tap Missed");
+            }
+        }
+    }
+
+    // create note under Tristan using noteType
+    private void addMusicNotes(int noteType, bool success) {
+        MusicNote tempNote;
+        if (noteType <= skillNotes.Length && noteType > 0) {
+            tempNote = Instantiate(skillNotes[noteType - 1], notePoint.position, notePoint.rotation);
+            tempNote.noteStarted();
+            tempNote.transform.SetParent(notePoint);
+            noteList.Add(tempNote);
+            if (success) castCounter++;
+            adjustNotePosition(success);
+        }
+    }
+
+    // move the notes accordingly
+    private void adjustNotePosition(bool success) {
+        float noteWidth = 0, posXFactor = 0, startXPos = notePoint.position.x, startYPos = notePoint.position.y;
+        // get the length of noteList first to determine how many times to move a note
+        int l = noteList.Count, startXFactor = 0;
+        
+        // get the length of a musical note 
+        if (noteList.Count > 0) {
+            noteWidth = noteList[0].GetComponent<Renderer>().bounds.size.x;
+            posXFactor = noteWidth * 2; // multiply by 2 to include gaps in between
+        }
+        if (l > 1) {
+            float xpos = 0;
+            // determine middle number and start at leftside most of the spacing
+            startXFactor = (l / 2) * -1; // get the half value and truncate the decimals;
+            if (l % 2 == 0) startXPos += noteWidth;
+
+            // start moving the notes as needed.
+            for (int i = 0; i < l; i++) {
+                xpos = startXPos + (posXFactor * startXFactor);
+                Vector2 moveNote = new Vector2(xpos,startYPos);
+                noteList[i].transform.position = moveNote;
+                startXFactor++;
+            }
+        }
+
+        // if the notes failed at least once break the notes and restart
+        // otherwise if the cast counter is completed, cast the skill
+        if (!success || castCounter >= skillCombo.Length) completeNoteList(success);
+    }
+
+    // animate the notes in the noteList list if they pass or fail, then remove them;
+    private void completeNoteList(bool success) {
+        MusicNote tempNote;
+        consoleUI.Log("Cast Status: " + success);
+        // for (int i = 0; i < noteList.Count; i++) {
+        while (noteList.Count > 0) {
+            Debug.Log("Removing note: " + noteList.Count);
+            tempNote = noteList[0]; 
+            if (success) tempNote.comboPassed();
+            else tempNote.comboFailed();
+            noteList.RemoveAt(0);
+        }
+
+        // trigger the skills if success
+        if (success) {
+            castSuccess = true;
+            triggerSkills();
+        }
+        // reset tap checker stats upon failing or completing
+        else resetTapCheckerStats();
+    }
+
+    // trigger completed skillCombo here and find with matching skill;
+    private void triggerSkills() {
+        
+        if (castSuccess) {
+            // trigger skill 1 for now
+            skill1.triggerSkill();
+            SFXCast.Play(); // play casting SFX
+            resetTapCheckerStats();
+        }
 
     }
+
 
     //  ================ testing sequences start here  ================ //
 
@@ -140,16 +276,6 @@ public class PlayerTristan : PlayerUnit
         skill1.RANGE = 5;
         skill1.Owner = this;
         skill1.Castpoint = frontSide;
-    }
-
-    private void tapTesting() {
-        if (Input.GetKeyDown(controls.Skillsync)) {
-          if (RhythmHandler.checkTap()) {
-            consoleUI.Log("Tap Successful");
-            skill1.triggerSkill();
-          }
-          else consoleUI.Log("Tap Missed");
-        }
     }
 
 }

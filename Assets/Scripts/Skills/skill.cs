@@ -61,7 +61,8 @@ public class Skill : MonoBehaviour
     // if the skill is in cooldown, isActive is false;
     public virtual bool triggerSkill() {
         bool success = false;
-        Debug.Log("Casting firebal skill...");
+        Debug.Log("Casting skill...");
+        consoleUI.Log("Cast Skill success: " + skillName);
         //if (isActive) {
             success = doOnTrigger();
         //}

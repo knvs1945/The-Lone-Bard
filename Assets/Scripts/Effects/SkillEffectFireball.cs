@@ -10,12 +10,18 @@ public class SkillEffectFireball : Projectiles
     protected string targetTag;
     protected float pushbackMin = 1f;
 
+    [SerializeField]
+    protected AudioSource SFX;
+
     // Start is called before the first frame update
     void Start()
     {
         startPos = transform.position;
         spd = fireballSpd;
         range = fireballRange;
+
+        // play fireball sound effect:
+        SFX.Play();
     }
 
     // Update is called once per frame

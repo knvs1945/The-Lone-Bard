@@ -27,16 +27,24 @@ public class ActiveFireball : Skill
             if (value >= 0) range = value;
         }
     }
+
+    // called on script load
+    void Awake()
+    {
+        isActive = true;
+        skillName = "Fireball";
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        isActive = true;
     }
 
     // fire a fireball
     protected override bool doOnTrigger()
     { 
         Debug.Log("Casting firebal skill 2...");
+        consoleUI.Log("Cast Skill success: " + skillName);
         Projectiles temp;
         temp = Instantiate(fireball, castpoint.position, castpoint.rotation);
         temp.DMG = dmg;
