@@ -46,3 +46,30 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: foreground1
+    uniqueID: 263122933
+    locked: 0
+  - name: foreground2
+    uniqueID: 1351216637
+    locked: 0
+  - name: foreground3
+    uniqueID: 2709702443
+    locked: 0
+  - name: effects
+    uniqueID: 4092517041
+    locked: 0
+  - name: mobs
+    uniqueID: 940989409
+    locked: 0
+  - name: player
+    uniqueID: 4169620559
+    locked: 0
+  - name: background1
+    uniqueID: 2432395927
+    locked: 0
+  - name: background2
+    uniqueID: 3749190801
+    locked: 0
+  - name: background3
+    uniqueID: 4079188755
+    locked: 0

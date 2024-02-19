@@ -169,7 +169,7 @@ public class PlayerTristan : PlayerUnit
                 else if (Input.GetKeyDown(controls.Skillsync2)) {
                     if (castCounter < skillCombo.Length) {
                         skillCombo[castCounter] = 2;
-                        addMusicNotes(1, true);
+                        addMusicNotes(2, true);
                     }
                     else Debug.Log("castCounter out of bounds: " + castCounter);
                 }

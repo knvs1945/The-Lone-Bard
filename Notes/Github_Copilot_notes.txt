@@ -40,3 +40,38 @@ public class DayNightCycle : MonoBehaviour
         }
     }
 }
+
+
+===================================================================================================
+
+Beat Detection algorithm by copilot
+
+float[] samples = new float[1024];
+float[] spectrum = new float[1024];
+float energyThreshold = 1.5f;
+Queue<float> energyQueue = new Queue<float>();
+
+void Update()
+{
+    audioSource.GetOutputData(samples, 0);
+    audioSource.GetSpectrumData(spectrum, 0, FFTWindow.BlackmanHarris);
+
+    float energy = 0;
+    for (int i = 0; i < samples.Length; i++)
+    {
+        energy += samples[i] * samples[i];
+    }
+
+    if (energyQueue.Count > 30)
+    {
+        energyQueue.Dequeue();
+    }
+    energyQueue.Enqueue(energy);
+
+    float averageEnergy = energyQueue.Average();
+
+    if (energy > averageEnergy * energyThreshold)
+    {
+        Debug.Log("Beat detected");
+    }
+}

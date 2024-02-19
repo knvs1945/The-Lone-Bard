@@ -81547,12 +81547,13 @@ MonoBehaviour:
   notePoint: {fileID: 82332544}
   skillNotes:
   - {fileID: 3251593315889518832, guid: f206471b6f09ac146ad13cb9b55684d1, type: 3}
-  - {fileID: 3251593315889518832, guid: f206471b6f09ac146ad13cb9b55684d1, type: 3}
+  - {fileID: 4917714722601242190, guid: 47f3e66ce6c33ac4e9643415cebdaf79, type: 3}
   skill1: {fileID: 3129383337668473839, guid: 709e39ecb17a69c4289a624e9c55eeea, type: 3}
   base_ATKbase: 1
   base_ATKmax: 3
   base_ATKdelay: 0.5
   base_ATKRange: 5
+  SFXCast: {fileID: 1233787422}
   body: {fileID: 1369111988}
 --- !u!50 &1233787420
 Rigidbody2D:
@@ -81638,7 +81639,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 61e4c5fa55d75dc46a80ae4d6911703e, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.596
   m_Pitch: 1
   Loop: 0
   Mute: 0
