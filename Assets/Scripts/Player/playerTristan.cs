@@ -238,7 +238,6 @@ public class PlayerTristan : PlayerUnit
         consoleUI.Log("Cast Status: " + success);
         // for (int i = 0; i < noteList.Count; i++) {
         while (noteList.Count > 0) {
-            Debug.Log("Removing note: " + noteList.Count);
             tempNote = noteList[0]; 
             if (success) tempNote.comboPassed();
             else tempNote.comboFailed();

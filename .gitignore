@@ -28,6 +28,6 @@ sysinfo.txt
 ehthumbs.db
 [Tt]humbs.db
 .plastic
-Build/
-Library/
-UserSettings/
+/Build
+/Library
+/UserSettings
