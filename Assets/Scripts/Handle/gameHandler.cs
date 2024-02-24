@@ -25,7 +25,7 @@ public class GameHandler : Handler
         Application.targetFrameRate = FPS;
 
         // test setBPM
-        RhythmHandler.setBPM(60);
+        // RhythmHandler.setBPM(60);
         consoleUI.Log("State: " + GameHandler.getGameState());
 
         // move this somewhere else once startLevel works

@@ -82671,7 +82671,7 @@ MonoBehaviour:
   currentTrack: {fileID: 1498207440}
   gameTracks:
   - {fileID: 8300000, guid: 1000d2bf7d6664f4bbf9b7823718a447, type: 3}
-  - {fileID: 8300000, guid: 9215bac7ff9113a4398f36331b231ebe, type: 3}
+  - {fileID: 8300000, guid: 5bddee2108c4e0d48b97897028e1eb5c, type: 3}
 --- !u!4 &1498207439
 Transform:
   m_ObjectHideFlags: 0
@@ -82701,8 +82701,8 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 0.3
   m_Pitch: 1
-  Loop: 1
-  Mute: 1
+  Loop: 0
+  Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 150
@@ -82793,9 +82793,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 5274e7cb590b1c742bc55a237d03787a, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 608900abf68facd44a3cd90bb9469a6c, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.394
+  m_Volume: 0.187
   m_Pitch: 1
   Loop: 1
   Mute: 0
