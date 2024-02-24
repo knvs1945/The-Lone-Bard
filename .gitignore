@@ -31,3 +31,7 @@ ehthumbs.db
 /Build
 /Library
 /UserSettings
+Build/*
+Library/*
+Logs/*
+UserSettings/*
