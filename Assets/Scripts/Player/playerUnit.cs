@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerUnit : GameUnit
 {    
+    protected BuffManager buffList = new BuffManager();
+
     protected PlayerControls controls;
     protected bool isControlDisabled = true, isdamageShldActive = false;
 

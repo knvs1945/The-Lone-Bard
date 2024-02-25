@@ -12,7 +12,7 @@ public class RhythmHandler : Handler
     public static RhythmHandler instance; // holds the ONLY instance of the object
     
     private const float defaultBeatInterval = 1, defaultBPM = 120; // BPM in seconds
-    private const float defaultTapPercent = 0.7f; // percentage of tap interval for each beat. Calculated as (1 - n) * 100, e.g. 0.4 = 60%
+    private const float defaultTapPercent = 0.4f; // percentage of tap interval for each beat. Calculated as (1 - n) * 100, e.g. 0.4 = 60%
     public static bool isInBeat = false; // what the player will check when doing certain actions
     public static float BPM = DEFAULT_BPM;
     private static bool isPlayingBeat = false, pauseBeat = false;
