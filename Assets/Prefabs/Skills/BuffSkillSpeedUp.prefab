@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4677489204121312001
+--- !u!1 &3065692949857527088
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6972810054843492967}
-  - component: {fileID: 3129383337668473839}
+  - component: {fileID: 282181820936919767}
+  - component: {fileID: 703197326431171283}
   m_Layer: 0
-  m_Name: ActiveSkillFireball
+  m_Name: BuffSkillSpeedUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6972810054843492967
+--- !u!4 &282181820936919767
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4677489204121312001}
+  m_GameObject: {fileID: 3065692949857527088}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,18 +32,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3129383337668473839
+--- !u!114 &703197326431171283
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4677489204121312001}
+  m_GameObject: {fileID: 3065692949857527088}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0276a5ff0c0d984e95a423e3206c8cd, type: 3}
+  m_Script: {fileID: 11500000, guid: e0388997779756a4f81fe6b0b0294008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerCombo: 01000000010000000100000001000000
-  fireball: {fileID: 7608723974806339875, guid: 7924fecf12d4c3d40a2b616e6088ef88,
+  triggerCombo: 02000000020000000200000002000000
+  speedBuff: {fileID: 7212427429976447286, guid: 8955cc650b53f2c4f87ce5ecd1a4b13f,
     type: 3}

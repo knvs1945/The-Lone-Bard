@@ -7,11 +7,19 @@ public class Buff : MonoBehaviour
 {
     protected const float MIN_TIME = 30f; // 30 second default buff time
     
+    public string buffName, statAffected;
+
+    protected GameUnit targetUnit;
     protected float duration = MIN_TIME;
     protected float timeToExpire;
-    protected bool isActive = true, hasExpired = false; // by default a buff is not 
+    protected bool isActive = false, hasExpired = false; // by default a buff is not 
 
     // access functions
+    public GameUnit TargetUnit {
+        get { return targetUnit; }
+        set { targetUnit = value; }
+    }
+
     public float Duration {
         get { return duration; }
         set { if (value > 0) duration = value; }
@@ -19,25 +27,33 @@ public class Buff : MonoBehaviour
 
     // check if a buff has expired to remove it
     public bool HasExpired {
-        get { return hasExpired = true; }
+        get { return hasExpired; }
     }
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        timeToExpire = Time.time + duration;
+    }
+
+    protected virtual void applyBuff() {
+        doOnApplyBuff();
     }
 
     // monitor buff duration here
     protected void monitorBuffDuration() {
         if (isActive && !hasExpired) {
-            if (Time.time > timeToExpire) hasExpired = true; // change the status for removal
+            if (Time.time > timeToExpire) {
+                Debug.Log("Buff Has Expired");
+                hasExpired = true; // change the status for removal
+            }
         }
     }
 
     // overrideable actions for buffs
-    protected virtual void doOnApplyBuff() {}
-    protected virtual void doOnRemoveBuff() {}
+    public virtual void doOnApplyBuff() {}
+    public virtual void doOnRemoveBuff() {}
+    
+    protected virtual void testStats() {}
 
 }
 
@@ -49,6 +65,12 @@ public class BuffManager
     // constructor 
     public BuffManager() {
         buffList = new List<Buff>();
+    }
+
+    // add a buff to the managing list
+    public void addBuffToList(Buff buffToAdd)
+    {
+        buffList.Add(buffToAdd);
     }
 
     // return true or false if buffs have expired

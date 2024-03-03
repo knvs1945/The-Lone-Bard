@@ -11,6 +11,9 @@ public class Skill : MonoBehaviour
     protected Transform castpoint;
     protected bool isActive, isPassive;
 
+    [SerializeField]
+    protected int[] triggerCombo;
+
     public int ID {
         get { return id; }
         set { id = value; }
@@ -46,7 +49,11 @@ public class Skill : MonoBehaviour
 
     public GameUnit Target {
         get { return target; }
-        set { target = Target; }
+        set { target = value; }
+    }
+
+    public int[] TriggerCombo {
+        get { return triggerCombo; }
     }
 
     // skill status checkers

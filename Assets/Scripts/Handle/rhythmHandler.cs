@@ -201,7 +201,7 @@ public class RhythmHandler : Handler
                     beatDuration = currentBeatTime - lastBeatTime;
                     tapBarSpeed = 100 / beatDuration;
                     tapGate = beatDuration * defaultTapPercent;
-                    Debug.Log("beatDuration: " + beatDuration + " - tapBarSpeed: " + tapBarSpeed + " - tapGate: " + tapGate);
+                    // Debug.Log("beatDuration: " + beatDuration + " - tapBarSpeed: " + tapBarSpeed + " - tapGate: " + tapGate);
                 }
                 lastBeatTime = currentBeatTime;
                 

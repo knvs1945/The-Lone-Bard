@@ -81549,6 +81549,7 @@ MonoBehaviour:
   - {fileID: 3251593315889518832, guid: f206471b6f09ac146ad13cb9b55684d1, type: 3}
   - {fileID: 4917714722601242190, guid: 47f3e66ce6c33ac4e9643415cebdaf79, type: 3}
   skill1: {fileID: 3129383337668473839, guid: 709e39ecb17a69c4289a624e9c55eeea, type: 3}
+  skill2: {fileID: 703197326431171283, guid: 9c2e84fb5127df14cb4a5958c31bcb01, type: 3}
   base_ATKbase: 1
   base_ATKmax: 3
   base_ATKdelay: 0.5

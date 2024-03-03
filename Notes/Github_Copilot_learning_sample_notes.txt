@@ -1,0 +1,83 @@
+Node.js: Build a simple REST API. This could be a backend service for a blog, where you can create, read, update, and delete blog posts. You can use Express.js, a popular web application framework for Node.js, to handle HTTP requests. You can also use a database like MongoDB or PostgreSQL to store your data.
+
+React.js: Build a blog frontend. This application would consume the REST API you built with Node.js. You can create a user interface to display blog posts, and forms to create and edit posts. You can use the fetch API or a library like axios to make HTTP requests to your backend.
+
+Angular.js: Build a task manager. This could be a simple application where you can create, update, and delete tasks. This will give you a good understanding of Angular.js concepts like modules, components, and services. You can also connect this to your Node.js backend and store tasks in the same database as your blog posts.
+
+========================================================================================================
+
+1. Node JS app step breakdown:
+
+Set up your project: Initialize a new Node.js project by running npm init in your terminal. This will create a new package.json file in your project directory.
+
+Install Express.js: Install Express.js, a web application framework for Node.js, by running npm install express in your terminal.
+
+Create your server: Create a new file (e.g., server.js) and set up a basic Express.js server. This server should listen on a port for incoming requests.
+
+Define your data model: Decide what data your blog posts will contain. For example, a blog post might have a title, content, author, and date.
+
+Set up your database: Choose a database to store your blog posts. You could use a NoSQL database like MongoDB or a SQL database like PostgreSQL. Install the appropriate Node.js driver for your database.
+
+Create routes: Define routes for creating, reading, updating, and deleting blog posts. Each route should correspond to a different endpoint of your API (e.g., GET /posts, POST /posts, PUT /posts/:id, DELETE /posts/:id).
+
+Implement route handlers: For each route, write a function that handles requests to that route. This function should interact with your database to perform the appropriate operation (e.g., creating a new blog post, retrieving all blog posts, updating a specific blog post, deleting a specific blog post).
+
+Test your API: Use a tool like Postman or curl to send requests to your API and check that it responds as expected.
+
+-----------------------------------------------------------------------
+
+Where to have nodejs server up and running: 
+
+Heroku: Heroku is a cloud platform that lets you build, deliver, monitor, and scale apps. It's very beginner-friendly and has a free tier that's perfect for small projects. You can deploy Node.js applications directly from your GitHub repository.
+
+Glitch: Glitch is a friendly community where you'll build the app of your dreams. It's a simple tool for creating web apps, that can be used to build and deploy Node.js applications for free.
+
+Vercel: Vercel is a cloud platform for static sites and Serverless Functions. It's built to integrate with your favorite headless CMS, eCommerce, authentication, and more. Vercel offers a free tier and integrates well with GitHub.
+
+AWS (Amazon Web Services): AWS offers a wide range of cloud services. For Node.js applications, you might use AWS Elastic Beanstalk, which is a fully managed service that makes it easy to deploy and run applications in several languages. AWS has a free tier, but it can be more complex to set up than the other options.
+
+========================================================================================================
+
+2. React JS app step breakdown:
+
+Set up your project: Create a new React.js project using Create React App by running npx create-react-app blog-frontend in your terminal.
+
+Understand your data: Identify the data your frontend will need from your backend. This will likely be the data for your blog posts.
+
+Install necessary libraries: You might need to install additional libraries like axios for making HTTP requests, and react-router-dom for routing in your React application.
+
+Create components: Start creating React components for each part of your UI. You might have a PostList component for displaying all posts, a Post component for displaying a single post, and a PostForm component for creating and editing posts.
+
+Fetch data from your API: Use the fetch API or axios to get data from your backend. You might fetch all posts when the PostList component mounts, fetch a single post when the Post component mounts, and create or update a post when the PostForm is submitted.
+
+Pass data to components: Pass the fetched data down to your components via props.
+
+Handle user interaction: Implement event handlers to handle user interaction, like clicking a button to create a new post or edit an existing one.
+
+Style your components: Use CSS to style your components. You can write regular CSS files, or use a CSS-in-JS solution like styled-components.
+
+Test your components: Write tests for your components to make sure they behave as expected. You can use testing libraries like Jest and React Testing Library.
+
+========================================================================================================
+
+3. Angular JS app step breakdown:
+
+Set up your project: Create a new AngularJS project. You can use a boilerplate or a seed project from GitHub to get started quickly.
+
+Understand your data: Identify the data your application will need. In this case, it will be the tasks that the user creates.
+
+Create your AngularJS modules: AngularJS uses modules to organize your code. You might have a main application module, and separate modules for different features.
+
+Create your AngularJS controllers: Controllers in AngularJS are responsible for setting initial state and augmenting $scope with methods to control behavior. You might have a TaskListController for displaying all tasks, and a TaskController for creating and editing tasks.
+
+Create your AngularJS services: Services in AngularJS are reusable business logic independent of views. You might have a TaskService that handles communication with your backend (if you decide to connect it to your Node.js backend).
+
+Create your AngularJS directives: Directives in AngularJS are a way to create reusable components. You might create directives for your task list and task form.
+
+Create your views: Views in AngularJS are the HTML templates that get compiled to display the rendered page. You'll need views for displaying all tasks and for creating/editing a task.
+
+Handle user interaction: Implement event handlers to handle user interaction, like clicking a button to create a new task or edit an existing one.
+
+Style your application: Use CSS to style your application. AngularJS allows you to scope CSS to specific components, which can make styling easier.
+
+Test your application: Write tests for your controllers, services, and directives to make sure they behave as expected. You can use testing tools like Jasmine and Karma.

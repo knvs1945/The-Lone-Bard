@@ -58,6 +58,10 @@ public class GameUnit : MonoBehaviour
         return false;
     }
 
+    // overrideable add buff and removeBuff methods for game units
+    public virtual void addBuff(int amount, string statname, Buff buffToAdd, int factor = 1, bool isRemoveBuff = false) { }
+    public virtual void addBuff(float amount, string statname, Buff buffToAdd, int factor = 1, bool isRemoveBuff = false) { }
+
     // force kill a unit
     public bool killUnit() {
         if (isAlive) {

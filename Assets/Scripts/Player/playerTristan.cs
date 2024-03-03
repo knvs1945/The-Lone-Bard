@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerTristan : PlayerUnit
@@ -9,13 +10,15 @@ public class PlayerTristan : PlayerUnit
     public MusicNote[] skillNotes;
 
     // temporary skill for testing;
-    public ActiveFireball skill1; 
+    public ActiveFireball skill1;
+    public BuffSpeedUp1 skill2;
 
     // will contain the stats for the character to be set on the UI
     public float base_ATKbase, base_ATKmax, base_ATKdelay, base_ATKRange; 
 
     private Rigidbody2D rbBody;
     private Vector2 moveInput, moveData;
+    private List<Buff> buffsToRemove;
     private int castCounter = 0;
     private bool canAttack = true, startCast = false, castSuccess = false;
     
@@ -28,12 +31,11 @@ public class PlayerTristan : PlayerUnit
     protected List<MusicNote> noteList;
     protected int[] skillCombo = new int[4];    // skill activation requires four notes
 
-
-
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
+        
         rbBody = GetComponent<Rigidbody2D>();
         animBody = body.GetComponent<Animator>();
         noteList = new List<MusicNote>();
@@ -53,6 +55,10 @@ public class PlayerTristan : PlayerUnit
             inputMovement();
             checkForSkillTaps();
         }
+        // check these stuff if the player is still alive
+        if (isAlive) { 
+            buffListManagement();
+        }
     }
 
     void FixedUpdate()
@@ -71,6 +77,9 @@ public class PlayerTristan : PlayerUnit
         ATKmax = base_ATKmax;
         ATKdelay = base_ATKdelay;
         ATKRange = base_ATKRange;
+
+        // reset the buffStatsList;
+        playerBuffs = new buffStatsList(0, 0, 0);
     }
 
     // reset tap checker stats here
@@ -82,11 +91,22 @@ public class PlayerTristan : PlayerUnit
         noteList.Clear(); // reset the notes list
     }
 
+    // Manage buffs here
+    private void buffListManagement() {
+        if (buffList.checkExpiredBuffs()) {
+            Debug.Log("One or more buffs have expired");
+            buffsToRemove = buffList.getExpiredBuffs();
+            foreach (Buff buff in buffsToRemove) {
+                buff.doOnRemoveBuff();
+            }
+        }
+    }
+
     // ================ Input action sequences start here  ================ //
     // Input for moving player
     private void inputMovement() {
         moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        moveData = moveInput.normalized * moveSpeed;
+        moveData = moveInput.normalized * (moveSpeed + playerBuffs.moveSpeed);
 
         // add default keycode for up, down left and right arrows
         if (Input.GetKeyDown(controls.MoveUp) || Input.GetKeyDown(KeyCode.UpArrow)) setAnimationWalking(1, true);
@@ -129,7 +149,7 @@ public class PlayerTristan : PlayerUnit
         frontSideRotation = animBody.GetInteger("walkDirection");
         animBody.SetTrigger("normalAttack");
         tempSlash = Instantiate(attackEffect, attackPoint.position, attackPoint.rotation);
-        tempSlash.DMG = Random.Range(base_ATKbase, base_ATKmax);
+        tempSlash.DMG = Random.Range(base_ATKbase, base_ATKmax) + playerBuffs.ATKmin;
     }
     
     // do on takes damage
@@ -257,8 +277,13 @@ public class PlayerTristan : PlayerUnit
     private void triggerSkills() {
         
         if (castSuccess) {
-            // trigger skill 1 for now
-            skill1.triggerSkill();
+            // check which skill matches the current combo
+            if (skillCombo.SequenceEqual(skill1.TriggerCombo)) {
+                skill1.triggerSkill();
+            }
+            else if (skillCombo.SequenceEqual(skill2.TriggerCombo)) {
+                skill2.triggerSkill();
+            }
             SFXCast.Play(); // play casting SFX
             resetTapCheckerStats();
         }
@@ -269,12 +294,17 @@ public class PlayerTristan : PlayerUnit
     //  ================ testing sequences start here  ================ //
 
     private void initSkillTesting() {
-        // temporary skill here;
+        // temporary skills here;
         skill1.DMG = base_ATKbase;
         skill1.SPEED = 30;
         skill1.RANGE = 5;
         skill1.Owner = this;
         skill1.Castpoint = frontSide;
+
+        // buff skill here
+        skill2.Owner = this;
+        skill2.Target = this;
+        skill2.Castpoint = frontSide;
     }
 
 }
