@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerTristan : PlayerUnit
 {
     public Projectiles attackEffect;
-    public Transform frontSide, attackPoint, notePoint;
+    public Transform frontSide, attackPoint, notePoint, bodyPoint;
     public MusicNote[] skillNotes;
 
     // temporary skill for testing;
@@ -305,6 +305,7 @@ public class PlayerTristan : PlayerUnit
         skill2.Owner = this;
         skill2.Target = this;
         skill2.Castpoint = frontSide;
+        skill2.Attachpoint = bodyPoint;
     }
 
 }

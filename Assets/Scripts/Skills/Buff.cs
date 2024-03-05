@@ -10,6 +10,7 @@ public class Buff : MonoBehaviour
     public string buffName, statAffected;
 
     protected GameUnit targetUnit;
+    protected Transform castPoint;
     protected float duration = MIN_TIME;
     protected float timeToExpire;
     protected bool isActive = false, hasExpired = false; // by default a buff is not 
@@ -19,6 +20,13 @@ public class Buff : MonoBehaviour
         get { return targetUnit; }
         set { targetUnit = value; }
     }
+    
+    // Getters and Setters
+    public Transform CastPoint {
+        get { return castPoint; }
+        set { castPoint = value; }
+    }
+
 
     public float Duration {
         get { return duration; }

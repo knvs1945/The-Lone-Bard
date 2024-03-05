@@ -36,6 +36,7 @@ public class BuffSpeedUp1 : Skill
         consoleUI.Log("Cast Skill success: " + skillName);
         Buff tempBuff;
         tempBuff = Instantiate(speedBuff);
+        tempBuff.CastPoint = attachpoint;
         System.Diagnostics.Debugger.Break();
         if (target) {
             Debug.Log("Speed Buff target present: " + target);

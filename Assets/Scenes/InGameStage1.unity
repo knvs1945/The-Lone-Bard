@@ -196,7 +196,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 82332544}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: notespoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -379,7 +379,7 @@ GameObject:
   - component: {fileID: 295536201}
   - component: {fileID: 295536203}
   - component: {fileID: 295536202}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: frontside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81545,6 +81545,7 @@ MonoBehaviour:
   frontSide: {fileID: 295536201}
   attackPoint: {fileID: 2034099288}
   notePoint: {fileID: 82332544}
+  bodyPoint: {fileID: 1369111989}
   skillNotes:
   - {fileID: 3251593315889518832, guid: f206471b6f09ac146ad13cb9b55684d1, type: 3}
   - {fileID: 4917714722601242190, guid: 47f3e66ce6c33ac4e9643415cebdaf79, type: 3}
@@ -81735,9 +81736,9 @@ GameObject:
   - component: {fileID: 1369111989}
   - component: {fileID: 1369111991}
   - component: {fileID: 1369111990}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -83007,7 +83008,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2034099288}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: attackpoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

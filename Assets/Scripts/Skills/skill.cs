@@ -8,7 +8,7 @@ public class Skill : MonoBehaviour
     protected int id, type, level;
     protected string skillName, description;
     protected GameUnit owner, target;
-    protected Transform castpoint;
+    protected Transform castpoint, attachpoint;
     protected bool isActive, isPassive;
 
     [SerializeField]
@@ -45,6 +45,11 @@ public class Skill : MonoBehaviour
     public Transform Castpoint {
         get { return castpoint; }
         set { castpoint = value; }
+    }
+
+    public Transform Attachpoint {
+        get { return attachpoint; }
+        set { attachpoint = value; }
     }
 
     public GameUnit Target {
