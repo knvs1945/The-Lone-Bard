@@ -3,34 +3,46 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// Player class for the player unit the user directly controls
+/// Inherits from Player Unit, but no need to assign its playerunit object
+/// </summary>
+
 public class PlayerTristan : PlayerUnit
 {
+    // public entries
     public Projectiles attackEffect;
     public Transform frontSide, attackPoint, notePoint, bodyPoint;
+    
+    // Arrays and Lists
     public MusicNote[] skillNotes;
-
-    // temporary skill for testing;
-    public ActiveFireball skill1;
-    public BuffSpeedUp1 skill2;
-
+    protected List<MusicNote> noteList;
+    protected int[] skillCombo = new int[4];    // skill activation requires four notes
+    private List<Buff> buffsToRemove;
+    
     // will contain the stats for the character to be set on the UI
     public float base_ATKbase, base_ATKmax, base_ATKdelay, base_ATKRange; 
 
+    // objects 
     private Rigidbody2D rbBody;
     private Vector2 moveInput, moveData;
-    private List<Buff> buffsToRemove;
+
+    // primitives    
     private int castCounter = 0;
     private bool canAttack = true, startCast = false, castSuccess = false;
-    
+        
+    // specifics
     [SerializeField]
     private AudioSource SFXCast;
 
     [SerializeField]
     protected GameObject body;
     protected Animator animBody;
-    protected List<MusicNote> noteList;
-    protected int[] skillCombo = new int[4];    // skill activation requires four notes
 
+    // Testing items here;
+    public ActiveFireball skill1;
+    public BuffSpeedUp1 skill2;
+    
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -72,6 +84,7 @@ public class PlayerTristan : PlayerUnit
         isAlive = checkHPifAlive() ? true : false;
     }
 
+    // use this class at the start of every game
     private void initializeStats() {
         ATKbase = base_ATKbase;
         ATKmax = base_ATKmax;
@@ -80,6 +93,9 @@ public class PlayerTristan : PlayerUnit
 
         // reset the buffStatsList;
         playerBuffs = new buffStatsList(0, 0, 0);
+
+        // reset the skills used
+        skillList = new SkillManager(this);
     }
 
     // reset tap checker stats here
@@ -276,15 +292,13 @@ public class PlayerTristan : PlayerUnit
     // trigger completed skillCombo here and find with matching skill;
     private void triggerSkills() {
         
+        Skill skillToUse;
         if (castSuccess) {
-            // check which skill matches the current combo
-            if (skillCombo.SequenceEqual(skill1.TriggerCombo)) {
-                skill1.triggerSkill();
+            skillToUse = skillList.matchTriggerCombo(skillCombo);
+            if (skillToUse != null) {
+                skillToUse.triggerSkill();
+                SFXCast.Play(); // play casting SFX
             }
-            else if (skillCombo.SequenceEqual(skill2.TriggerCombo)) {
-                skill2.triggerSkill();
-            }
-            SFXCast.Play(); // play casting SFX
             resetTapCheckerStats();
         }
 
@@ -300,12 +314,16 @@ public class PlayerTristan : PlayerUnit
         skill1.RANGE = 5;
         skill1.Owner = this;
         skill1.Castpoint = frontSide;
-
+        
         // buff skill here
         skill2.Owner = this;
         skill2.Target = this;
         skill2.Castpoint = frontSide;
         skill2.Attachpoint = bodyPoint;
+
+        // add those skills to the skillList
+        skillList.addSkill(skill1);
+        skillList.addSkill(skill2);
     }
 
 }

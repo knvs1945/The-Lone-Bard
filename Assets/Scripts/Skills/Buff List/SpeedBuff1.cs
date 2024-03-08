@@ -9,7 +9,7 @@ public class SpeedBuff1 : Buff
 
     // speed to add when buff is used
     [SerializeField]
-    protected SpeedGlowEffect1 glowEffect;
+    protected SpeedGlowEffect1 glowEffect, tempEffect;
 
     protected float speedAmount = MIN_SPEED_BUFF;
     protected int factor = 1;
@@ -27,11 +27,12 @@ public class SpeedBuff1 : Buff
     }
 
     // overrideable actions for buffs
-    public override void doOnApplyBuff() {
-        SpeedGlowEffect1 tempEffect;
-        
+    public override void doOnApplyBuff() {        
         testStats(); // comment out this function if done with testing stats
         targetUnit.addBuff(speedAmount, statAffected, this, factor);
+        
+        // Remove any present glowing effect on the player and reset it
+        if (tempEffect != null) tempEffect.stopGlow();
         
         // Instantiate glowing effect into target Unit
         tempEffect = Instantiate(glowEffect, castPoint, false);
@@ -48,8 +49,8 @@ public class SpeedBuff1 : Buff
         Debug.Log("Removing this buff: " + buffName);
         targetUnit.addBuff(speedAmount, statAffected, this, -1, true);
 
-        Effects tempEffect = castPoint.GetComponent<SpeedGlowEffect1>();
-        if (tempEffect != null) Destroy(glowEffect.gameObject);
+        // tempEffect = castPoint.GetComponent<SpeedGlowEffect1>();
+        if (tempEffect != null) tempEffect.stopGlow();
 
         Destroy(gameObject);
     }

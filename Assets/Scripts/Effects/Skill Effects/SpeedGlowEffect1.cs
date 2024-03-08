@@ -5,6 +5,8 @@ using UnityEngine;
 // effect used by SpeedBuff1
 public class SpeedGlowEffect1 : Effects
 {
+    private static Color defaultColor = new Color(1f, 1f, 1f, 1f);
+
     public GameObject target;
     public float GlowBrightness = 5.0f;
     private Renderer _renderer;
@@ -33,9 +35,19 @@ public class SpeedGlowEffect1 : Effects
     public void startGlow()
     {
         _renderer = target.GetComponent<Renderer>();
+        _renderer.material.color = defaultColor;
         baseColor = _renderer.material.color; // The base color of the sprite
         targetColor = Color.blue; // The color you want to ping-pong to
+
+        // default the renderer to base white to ensure colors are restarting properly
         isGlowing = true;
+    }
+
+    public void stopGlow()
+    {
+        isGlowing = false;
+        _renderer.material.color = baseColor; // Set the new color
+        Destroy(gameObject);
     }
 
 }

@@ -2,9 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// PlayerUnit class - for managing the player object directly manipulated by the player. 
+/// Also holds the buffs and skills manager inherited by player objects
+/// </summary>
+
 public class PlayerUnit : GameUnit
 {    
+    
+    // Managers
     protected BuffManager buffList = new BuffManager();
+    protected SkillManager skillList;
 
     protected PlayerControls controls;
     protected bool isControlDisabled = true, isdamageShldActive = false;

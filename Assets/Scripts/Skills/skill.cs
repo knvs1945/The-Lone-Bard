@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+
 
 // class for skills 
 public class Skill : MonoBehaviour
@@ -129,5 +131,19 @@ public class SkillManager
         if (newSkill != null) {
             skillSet.Remove(newSkill);
         }
+    }
+
+    public Skill matchTriggerCombo(int[] combo) {
+        Skill matchingSkill = null;
+        if (combo.Length > 0) {
+            for (int i = 0; i < skillSet.Count; i++) {
+                if (combo.SequenceEqual(skillSet[i].TriggerCombo)) {
+                    matchingSkill = skillSet[i]; // found a matching skill, break and return it
+                    break;
+                }
+            }
+        }
+
+        return matchingSkill;
     }
 }
