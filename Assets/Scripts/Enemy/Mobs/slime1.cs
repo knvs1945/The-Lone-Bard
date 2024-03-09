@@ -110,7 +110,7 @@ public class Slime1 : Enemy
         }
     }
 
-    // bat 1 gets damaged
+    // slime 1 gets damaged
     protected override void doOnTakeDamage(float DMG) {        
         if (HP >= 0) {
             HP -= DMG;

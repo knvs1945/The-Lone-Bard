@@ -18,7 +18,6 @@ public class PlayerHandler : Handler
     protected PlayerControls controlPlayer1;
     protected string[] defaultTapKeys = {"h","j","k","l"};
 
-
     // Start is called before the first frame update
     void Start()
     {
