@@ -19,7 +19,7 @@ public class Bat1 : Enemy
     }
 
     // Start is called before the first frame update
-    protected override void Start()
+    protected void Awake()
     {
         atkAnimSpd = 3;
         ATKTimer = 0;
@@ -27,11 +27,13 @@ public class Bat1 : Enemy
         ATKbase = 5;
         // currentTarget = tempTarget;
         UpdateTarget();
+        isAlive = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!isEnemyEnabled) return;
         chaseCurrentTarget();
     }
 

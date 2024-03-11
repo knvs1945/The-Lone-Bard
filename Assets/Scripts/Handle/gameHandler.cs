@@ -14,6 +14,8 @@ public class GameHandler : Handler
     protected EnemyHandler enemyHandle;
     [SerializeField]
     protected GoalHandler goalHandle;
+    [SerializeField]
+    protected MapHandler mapHandle;
     private bool stagePrepFlag;
 
 
@@ -56,23 +58,79 @@ public class GameHandler : Handler
     public bool startLevel() {
         stagePrepFlag = false;
         if (gameState != states.inStage) {
-            // only change the gameState if the stage preps completes
-            StartCoroutine(startStagePreps(result => {
-                if (result) {
-                    Debug.Log("Start Stage Preparations completed");
-                    gameState = states.inStage;
-                }
-                else Debug.Log ("An error occurred during stage preparation.");
-            }));
-        }
+            Debug.Log("GameHandler: starting level...");
+           
+
+                // only change the gameState if the stage preps completes
+                StartCoroutine(startStagePreps(result => {
+                    if (result) {
+                        Debug.Log("Start Stage Preparations completed");
+                        gameState = states.inStage;
+                    }
+                    else Debug.Log ("An error occurred during stage preparation.");
+                }));
+            }
         return stagePrepFlag;
     }
 
     // prep sequences
     IEnumerator startStagePreps(Action<bool> checkPrepDone) {
-        yield return StartCoroutine(playerStagePrep());
+        yield return StartCoroutine(mapGoalsStagePrep());
         
         checkPrepDone(stagePrepFlag); // all coroutines returned properly so we return true
+    }
+
+    IEnumerator mapGoalsStagePrep() {
+        bool success = false;
+        string defaultGoalTitle = "Destroy Obelisks";
+        string defaultGoalDesc = "Destroy the obelisk block the next area";
+        Goal thisGoal, prevGoal = null;
+
+        List<Gatekeeper> gkList;
+
+         // 1. get the map handler's Gatekeeper spawns and pass it to the Enemy Handler
+        if (enemyHandle.spawnGateKeepers(mapHandle.GatekeeperSpawns, gameStage)) {
+                // 2. Create a goals per spawned gatekeeper and assign MapHandle as its owner
+                mapHandle.CurrentGKs = enemyHandle.Gatekeepers;
+                for (int i = 0; i < mapHandle.CurrentGKs.Count; i++) {
+                    Debug.Log ("Checking Goal Handler: " + goalHandle);
+                    thisGoal = goalHandle.CreateGoal(
+                        Goal.TYPE_KILL, 
+                        defaultGoalTitle, 
+                        defaultGoalDesc, 
+                        mapHandle.CurrentGKs[i], true, 
+                        0, 0, 
+                        null, 
+                        prevGoal
+                    );
+                    if (thisGoal != null) thisGoal.Owner = mapHandle;
+                    if (prevGoal == null) prevGoal = thisGoal;
+                }
+
+            yield return StartCoroutine(enemyStagePrep());
+            success = true;
+        }
+        yield return success;
+
+    }
+
+    IEnumerator enemyStagePrep() {
+        bool success = false;
+        Enemy tempEnemy;
+        int monsterCount = 5;
+        float distanceFromGK = 3f;
+        // 3. Create monsters per gatekeeper available
+        for (int i = 0; i <mapHandle.CurrentGKs.Count; i++) {
+            for (int j = 0; j < monsterCount; j++) {
+                
+                // Debug.Log("MapHandle: Spawning monster for GK-" + i + ": " + j);
+                tempEnemy = enemyHandle.spawnEnemy(mapHandle.CurrentGKs[i], distanceFromGK, distanceFromGK, 0); // let's set areaID to default 0 for now;
+                if (tempEnemy != null) mapHandle.CurrentGKs[i].addAsDefender(tempEnemy);
+            }
+        }
+        success = true;
+        yield return StartCoroutine(playerStagePrep());
+        yield return success;
     }
     
     IEnumerator playerStagePrep() {
@@ -92,7 +150,8 @@ public class GameHandler : Handler
         bool success = false;
         rhythmHandle.playMetronome();
         rhythmHandle.playTrack(1);
-        enemyHandle.startGenerator(0,1); // start spawning monsters    
+        // enemyHandle.startGenerator(0,1); // start spawning monsters    
+        // Enemy.isEnemyEnabled = true; // true = unpauses the enemy
         success = true;
         // yield return success;
     }

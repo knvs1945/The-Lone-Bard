@@ -14,11 +14,18 @@ public class flytrap1 : Enemy
     {
         // get animator component
         anim = GetComponent<Animator>();
+    
+    }
+
+    protected void Awake()
+    {
+        isAlive = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!isEnemyEnabled) return;
         checkTargetInRange();
     }
 

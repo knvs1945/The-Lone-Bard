@@ -26,4 +26,11 @@ public class Handler : MonoBehaviour
     protected static bool pauseGame = false;
     protected static int FPS = 30;
     protected static float stageIntroTimer = 3f;
+
+    // game-shared data
+    protected static int gameStage = 1;
+
+    // A goal will inform its handler that it has been completed
+    public virtual void goalCompleted (Goal goal) { }
+    public virtual void goalFailed (Goal goal) { }
 }

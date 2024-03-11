@@ -20,7 +20,7 @@ public class Slime1 : Enemy
     }
 
     // Start is called before the first frame update
-    protected override void Start()
+    protected void Awake()
     {
         atkAnimSpd = 3;
         ATKTimer = 0;
@@ -30,12 +30,15 @@ public class Slime1 : Enemy
         targetPosition = setNewTargetPosition(roamRangeX, roamRangeY); // setup a roam range
         roamTimer = Time.time + roamDelay; // setup a roam timer if the roam position is not reachable\
         UpdateTarget();
+        isAlive = true;
     }
 
     // Update is called once per frame
     protected virtual void Update()
     {
-        // roam anywhere until 
+        if (!isEnemyEnabled) return;
+
+        // roam anywhere until it finds a player
         if (getTargetDistance() >= chaseRange) freeRoamToPoint();
         else chaseCurrentTarget();
     }

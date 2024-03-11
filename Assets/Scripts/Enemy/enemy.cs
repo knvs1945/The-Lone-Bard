@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy : GameUnit
 {
+    public static bool isEnemyEnabled = false;
     protected static bool isDamageTextVisible = true;
 
     public DmgEffect damageText;

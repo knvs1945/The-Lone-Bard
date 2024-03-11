@@ -304,7 +304,6 @@ public class PlayerTristan : PlayerUnit
 
     }
 
-
     //  ================ testing sequences start here  ================ //
 
     private void initSkillTesting() {

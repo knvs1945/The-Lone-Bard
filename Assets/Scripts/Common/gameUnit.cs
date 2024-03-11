@@ -6,19 +6,16 @@ public class GameUnit : MonoBehaviour
 {
     public float HP, moveSpeed;
 
-    protected int Level;
+    protected int Level = 1;
     protected float HPMax, HPTemp;
     protected float ATKbase, ATKmax, ATKTemp, ATKdelay, ATKTimer, ATKRange;
-    protected bool isAlive, isActive, isPaused, isImmune, isNPC, isIllusion;
+    protected bool isAlive = true, isActive, isPaused = false, isImmune = false, isNPC = false, isIllusion;
     
     [SerializeField]
     protected string unitName;
 
     // constructor
     public GameUnit() {
-        isAlive = isImmune = true;
-        isActive = isPaused = isNPC = false;
-        Level = 1;
     }
 
     // getters
@@ -51,6 +48,7 @@ public class GameUnit : MonoBehaviour
 
     // common unit behavior
     public bool takesDamage(float DMG) {
+        Debug.Log("Target takes damage! " + this);
         if (!isImmune) {
             doOnTakeDamage(DMG);
             return true;

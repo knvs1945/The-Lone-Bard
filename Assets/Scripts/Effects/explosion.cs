@@ -27,8 +27,10 @@ public class Explosion : Effects
         
         if (splashDMG > 0 && targets.Length > 0) {
             for (int i = 0; i < targets.Length; i++) {
-                if (checkTargetsAroundSplash(targets[i].transform)) {
-                    targets[i].GetComponent<GameUnit>().takesDamage(splashDMG); // deal damage to that unit
+                if (targets[i] != null) {
+                    if (checkTargetsAroundSplash(targets[i].transform)) {
+                        targets[i].GetComponent<GameUnit>().takesDamage(splashDMG); // deal damage to that unit
+                    }
                 }
             }
         }

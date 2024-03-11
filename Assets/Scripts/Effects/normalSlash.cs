@@ -22,6 +22,7 @@ public class NormalSlash : Projectiles
     // slash has hit a target. targets is from projectiles superclass
     protected override void doOnHitTarget(Collider2D collision) {
       Debug.Log("collision tag: " + collision.tag);
+      Debug.Log(collision.tag);
       targetTag = collision.tag; 
       if (targets.Contains(targetTag)) {
           // Debug.Log("Target collided: " + targetTag + " - " + targets[i] + " - " + DMG);
@@ -32,7 +33,8 @@ public class NormalSlash : Projectiles
               case "Boss":
               case "boss":
                   Enemy enemy = collision.GetComponent<Enemy>();
-                  if (enemy != null) enemy.takesDamage(DMG);
+                  // if (enemy != null) 
+                  enemy.takesDamage(DMG);
                   animRemoveEffect();
                   break;
           }
