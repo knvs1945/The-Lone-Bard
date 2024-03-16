@@ -6,8 +6,14 @@ public class Gatekeeper : Enemy
 {
     public List<Enemy> defenders = new List<Enemy>();
 
+    protected Pathblocker ownedPathblocker;
     protected bool hasProtectors = true;
 
+    // Getters and Setters
+    public Pathblocker OwnedPathblocker {
+        get { return OwnedPathblocker; }
+        set { ownedPathblocker = value; }
+    }
 
     // Start is called before the first frame update
     void Awake()
@@ -37,6 +43,24 @@ public class Gatekeeper : Enemy
         }
     }
 
+    // open assigned pathblocker if available
+    public bool openPathblocker() {
+        Debug.Log("Opening pathblocker: " + ownedPathblocker);
+        if (ownedPathblocker != null) ownedPathblocker.open();
+        return true;
+    }
+
+    // release assigned pathblocker
+    public bool releasePathBlocker() {
+        if (ownedPathblocker != null) {
+            // ownedPathblocker.remove();
+            ownedPathblocker = null;
+            Destroy(gameObject);
+            return true;
+        }
+        return false;
+    }
+
     // obelisk gets damaged. Only takes damage if it has no more defenders
     protected override void doOnTakeDamage(float DMG) {
         if (hasProtectors) {
@@ -47,7 +71,6 @@ public class Gatekeeper : Enemy
             HP -= DMG;
             if (HP <= 0) {
                 this.isAlive = false;
-                Destroy(gameObject);
             }
         }
     }

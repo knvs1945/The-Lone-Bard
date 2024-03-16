@@ -103,6 +103,8 @@ public class GameHandler : Handler
                         null, 
                         prevGoal
                     );
+                    // we only need to create Gatekeepers - 1 pathblockers since the last GK will initiate the boss fight
+                    if (i < mapHandle.CurrentGKs.Count - 1) mapHandle.spawnPathblockers(mapHandle.CurrentGKs[i], i); // spawn pathblocker per Gatekeeper here;
                     if (thisGoal != null) thisGoal.Owner = mapHandle;
                     if (prevGoal == null) prevGoal = thisGoal;
                 }
@@ -148,6 +150,7 @@ public class GameHandler : Handler
         
         yield return new WaitForSeconds(stageIntroTimer + 1);
         bool success = false;
+        goalHandle.IsCheckingGoals = true;
         rhythmHandle.playMetronome();
         rhythmHandle.playTrack(1);
         // enemyHandle.startGenerator(0,1); // start spawning monsters    

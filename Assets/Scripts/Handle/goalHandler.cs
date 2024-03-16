@@ -19,7 +19,10 @@ public class GoalHandler : Handler
 
     public bool IsCheckingGoals {
         get { return isCheckingGoals; }
-        set { isCheckingGoals = value; }
+        set { 
+            Debug.Log("Goal Checking started...");
+            isCheckingGoals = value; 
+        }
     }
     
     // Start is called before the first frame update
@@ -34,14 +37,18 @@ public class GoalHandler : Handler
         int goalStatus = 0;
         if (isCheckingGoals) {
             // check if any goals have passed or failed and then report them to their handler
-            for (int i = goalList.Count-1; i > goalList.Count; i++) {
+            for (int i = goalList.Count-1; i >= 0; i--) {
                 goalStatus = goalList[i].checkForCompletion();
                 if (goalStatus != 0) { 
-                    if (goalStatus == 1) goalList[i].Owner.goalCompleted(goalList[i]);
+                    if (goalStatus == 1) {
+                        Debug.Log("A goal has been completed for Owner: " + goalList[i].Owner);
+                        goalList[i].Owner.goalCompleted(goalList[i]);
+                    }
                     else if (goalStatus == -1) goalList[i].Owner.goalFailed(goalList[i]);
                     goalList[i].goalForRemoval = true;
                 }
             }
+
             // then remove all goals that are either completed/failed;
             goalList.RemoveAll(goal => goal.goalForRemoval);
         }
@@ -179,7 +186,11 @@ public class Goal
     // kill-type objectives. Will check if target is still alive and return true if so
     protected bool checkKillObjective() {
         bool success = false;
-        if (!target.IsAlive) success = true; // unit has been killed;
+        Debug.Log("Checking if target: " + target + " is still alive: " + target.IsAlive);
+        if (!target.IsAlive) {
+            Debug.Log("target has been killed - Goal completed: " + target);
+            success = true; // unit has been killed;
+        }
         return success;
     }
 
