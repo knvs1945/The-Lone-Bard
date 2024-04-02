@@ -154,7 +154,7 @@ public class GameHandler : Handler
         rhythmHandle.playMetronome();
         rhythmHandle.playTrack(1);
         // enemyHandle.startGenerator(0,1); // start spawning monsters    
-        // Enemy.isEnemyEnabled = true; // true = unpauses the enemy
+        Enemy.isEnemyEnabled = true; // true = unpauses the enemy
         success = true;
         // yield return success;
     }
